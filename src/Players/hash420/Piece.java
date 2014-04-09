@@ -12,8 +12,8 @@ package Players.hash420;
 
 /**
  * Piece Class for RSA5330 (aka PlayerModule)
- * @author Ranbir
- *
+ * @author Ranbir Aulakh 
+ * @author choose to remain secret..#VALID
  */
 public class Piece {
 	

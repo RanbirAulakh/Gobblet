@@ -26,7 +26,8 @@ import java.util.*;
 
 /**
  * Gobblet
- * @author rsa5330 Ranbir Aulakh
+ * @author Ranbir Aulakh
+ * @author Kemoy Campbell
  *
  */
 
@@ -35,8 +36,8 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	private int playerID;
 	private Logger log;
 	private PlayerMove lastMove;
-	private int row = 4, cols = 4;
-	private Stack<Piece>[][] board = new Stack[row][cols];
+	private final int ROW = 4, COL = 4;
+	private Stack<Piece>[][] board = new Stack[ROW][COL];
 	private Stack<Piece>[] player1 = new Stack[3];
 	private Stack<Piece>[] player2 = new Stack[3];
 	
@@ -102,7 +103,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	
 	/**
 	 * Describe what is visible on the board at a given location.
-	 * @param row - the row of interest on the board (0-based)
+	 * @param ROW - the row of interest on the board (0-based)
 	 * @param col - the column of interest on the board (0-based)
 	 * @return the ID of the player (1-2) that owns the piece on 
 	 * top of the stack of pieces at the given location on the board.
@@ -124,7 +125,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 		
 	/**
 	 * Describe what is visible on the board at a given location.
-	 * @param row - the row of interest on the board (0-based)
+	 * @param ROW - the row of interest on the board (0-based)
 	 * @param col - the column of interest on the board (0-based)
 	 * @return the size of the piece on top of the stack of pieces at 
 	 * the given location on the board. If the stack is empty, -1.
@@ -186,8 +187,8 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 		this.log = arg0;
 		this.playerID = arg1;
 		
-		for (int i = 0; i < row; i++){
-		    for (int j = 0; j < cols; j++){
+		for (int i = 0; i < ROW; i++){
+		    for (int j = 0; j < COL; j++){
 		        board[i][j] = new Stack<Piece>();
 		        //System.out.print(board[i][j]);
 		    }
@@ -257,7 +258,12 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	 */
 	@Override
 	public PlayerMove move() {
-		throw new UnsupportedOperationException();
+		
+		//use to find valid move.
+		
+		//this is the function that
+		
+		return lastMove;
 	}
 	
 	/**
@@ -269,7 +275,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	 */
 	@Override
 	public void playerInvalidated(int arg0) {
-		throw new UnsupportedOperationException();
+		this.log.writeMsg("Invalid move", "PLAYER" + arg0+ " HAS BEEN KICKED OUT");
 	}
 
 }
