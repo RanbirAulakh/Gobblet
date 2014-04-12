@@ -23,6 +23,7 @@ import Interface.GobbletPart1;
 import Interface.PlayerModule;
 import Interface.PlayerMove;
 import java.util.*;
+import Interface.Coordinate;
 
 /**
  * Gobblet
@@ -259,14 +260,12 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	@Override
 	public PlayerMove move() {
 		
-		PlayerMove move;
-		int stack=0;
-		int defendRow = 0;
-		int defendCol = 0;
-		boolean threatning = false;
-		int owner;
-		
-		int empty=0;
+		PlayerMove move = null;
+		int stack = 0;
+		int piece = 0;
+		Coordinate start = new Coordinate(-1,-1);
+	    Coordinate end = new Coordinate(-1,-1);
+		boolean moved = false;
 		
 		//selecting the correct player's stack
 		if(playerID==1)
@@ -276,7 +275,9 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 				//if the stack is not empty take that stack
 				if( !( player1[i].isEmpty() ) )
 				{
-					stack= this.getTopSizeOnStack(playerID, i);
+					
+					piece= this.getTopSizeOnStack(playerID, i);
+					stack = i;
 					break;
 				}
 			}
@@ -286,117 +287,142 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 			 *                                  |
 			 *---------------------------------*/
 			
-			//is there any current threatening position?
-			//rows threatening
-			for(int check = 0; check<board.length; check++)
+			//can i current use any of my pieces to gobble the opponent's piece?
+			for(int col=0; col<board.length; col++)
 			{
-				int threat = 1;
-				int emptyTemp = 0;
+
 				for(int row = 0; row<board.length; row++)
 				{
-					owner = getTopOwnerOnBoard(check, row);
-				
-					if(owner==2)
+					int myPiece = this.getTopOwnerOnBoard(row, col);
+					if(myPiece==1)
 					{
-						threat++;
+						//compare it against everything on the board
+
+						for(int boardCol = 0; boardCol<board.length; boardCol++)
+						{
+							for(int boardRow = 0; boardRow<board.length; boardRow++)
+							{
+								//this piece is the opponent's piece
+								if(this.getTopOwnerOnBoard(boardCol, boardRow)==2)
+								{
+									//is my piece greater than the opponet?
+									if(myPiece>this.getTopSizeOnBoard(boardCol, boardRow))
+									{
+										start = new Coordinate(row, col);
+										end = new Coordinate(boardRow, boardCol);
+										moved =  true;
+										break;
+									}
+								}
+							}
+						}
 					}
-					//if i am also on that row then break since there is no way that nigga is going to win cause my piece is stopping him
-					else if(owner==1)
-					{
-						break;
-					}
-					
-					else if(owner==-1)
-					{
-						defendRow = row;
-						defendCol = check;
-					}
-					
-					//we have reach the end of a row
-					if(row==board.length && threat==3)
-					{
-						threatning = true;
-						break;
-					}
-				}
-			}//end of  rows threatning
-			
-			//diagonal threatning positions
-			if(!threatning)
-			{
-				int threat=1;
-				//diagonal 1
-				for(int check= 0; check<board.length; check++)
-				{
-					owner=getTopOwnerOnBoard(check, check);
-					
-					if(owner==2)
-					{
-						threat++;
-					}
-					
-					//i am in the row... now worries :-)
-					else if(owner==1)
-					{
-						break;//exist the loop 
-					}
-					
-					else if(owner==-1)
-					{
-						empty++;
-						defendRow = check;
-						defendCol = check;
-					}
-					
-					//i have reached the end of the board
-					if(check==board.length && threat == 3)
-					{
-						threatning = true;
-					}
-				}
-			}//end of diagonal 1
-			
-			if(!threatning)
-			{
-				int row=0, col = 3;
-				int threat = 0;
-				while(row<3 && col>0)
-				{
-					owner=getTopOwnerOnBoard(row, col);
-					
-					if(owner==2)
-					{
-						threat++;
-					}
-					
-					//i am in the row... now worries :-)
-					else if(owner==1)
-					{
-						break;//exist the loop 
-					}
-					
-					else if(owner==-1)
-					{
-						defendRow = row;
-						defendCol = col;
-					}
-					
-					//i have reached the end of the board
-					if(row==3&& col==0 && threat == 3)
-					{
-						threatning = true;
-					}
-					
-					row++; col--;
-				 }//end of while
+				}//end of gobblet the opponent piece while i am on the board
 			}
 			
-		}
+			//adding the piece to the board from the stack
+			if(moved==false)
+			{
+				for(int col = 0; col<board.length; col++)
+				{
+					for(int row=0; row<board.length; row++)
+					{
+						//an empty row on the board is found
+						if(this.getTopSizeOnBoard(col, row)==-1)
+						{
+							start = new Coordinate(-1,-1);
+							end =  new Coordinate(col, row);
+							moved= true;
+						}
+					}
+				}
+			}
+			
+			
+		}//end of if player 1
 		
+		//player2
+		//selecting the correct player's stack
+		if(playerID==2)
+		{
+			for(int i=1; i<player2.length; i++)
+			{
+				//if the stack is not empty take that stack
+				if( !( player2[i].isEmpty() ) )
+				{
+
+					piece= this.getTopSizeOnStack(playerID, i);
+					stack = i;
+					break;
+				}
+			}
+
+			/*----------------------------------
+			 * CURRENT BOARD STATE              |
+			 *                                  |
+			 *---------------------------------*/
+
+			//can i current use any of my pieces to gobble the opponent's piece?
+			for(int col=0; col<board.length; col++)
+			{
+
+				for(int row = 0; row<board.length; row++)
+				{
+					int myPiece = this.getTopOwnerOnBoard(row, col);
+					if(myPiece==2)
+					{
+						//compare it against everything on the board
+
+						for(int boardCol = 0; boardCol<board.length; boardCol++)
+						{
+							for(int boardRow = 0; boardRow<board.length; boardRow++)
+							{
+								//this piece is the opponent's piece
+								if(this.getTopOwnerOnBoard(boardCol, boardRow)==1)
+								{
+									//is my piece greater than the opponet?
+									if(myPiece>this.getTopSizeOnBoard(boardCol, boardRow))
+									{
+										start = new Coordinate(row, col);
+										end = new Coordinate(boardRow, boardCol);
+										moved =  true;
+										break;
+									}
+								}
+							}
+						}
+					}
+				}//end of gobblet the opponent piece while i am on the board
+			}
+
+			//adding the piece to the board from the stack
+			if(moved==false)
+			{
+				for(int col = 0; col<board.length; col++)
+				{
+					for(int row=0; row<board.length; row++)
+					{
+						//an empty row on the board is found
+						if(this.getTopSizeOnBoard(col, row)==-1)
+						{
+							start = new Coordinate(-1,-1);
+							end =  new Coordinate(col, row);
+							moved= true;
+						}
+					}
+				}
+			}
+
+
+		}//end of if player 1
+		if(moved)
+		{
+			move = new PlayerMove(playerID, stack, piece, start, end);
+		}
 		
 		//this is the function that
 		
-		return lastMove;
+		return move;
 	}
 	
 	/**
@@ -410,5 +436,6 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	public void playerInvalidated(int arg0) {
 		this.log.writeMsg("Invalid move", "PLAYER" + arg0+ " HAS BEEN KICKED OUT");
 	}
+
 
 }

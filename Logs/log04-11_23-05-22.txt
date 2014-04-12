@@ -1,0 +1,171 @@
+04-11 23:05:23 Engine Gobblet Java Client v1.1 by RIT CS Department starting up
+04-11 23:05:23 Engine Loading player Human
+04-11 23:05:23 Engine Loading player Human
+04-11 23:05:23 Engine Loaded 2 players
+04-11 23:05:25 Engine Calling init() for player 1
+04-11 23:05:25 Engine Calling init() for player 2
+04-11 23:05:26 Model  GUI accessible at:
+https://yendor.cs.rit.edu/~royale/gobblet/gameview/animations.500/public.477dd9fb6c34e918f839fadaa10cf1b9ace8d04b5348ad9eaef85/gameid.5649/myplayer.0/
+04-11 23:05:26 Engine Processing move #1
+04-11 23:05:26 Engine Getting preMove from list
+04-11 23:05:26 Engine Validating move: PlayerMove [playerId=1, stack=1, size=4, start=[-1, -1], end=[0, 3]]
+04-11 23:05:26 Engine Move validated. Notifying other players
+04-11 23:05:26 Engine Notifying player 1 of last move
+04-11 23:05:26 Engine Notifying player 2 of last move
+04-11 23:05:26 Engine Finished processing player 1's move
+04-11 23:05:26 Engine Processing move #2
+04-11 23:05:26 Engine Getting preMove from list
+04-11 23:05:26 Engine Validating move: PlayerMove [playerId=2, stack=1, size=4, start=[-1, -1], end=[0, 2]]
+04-11 23:05:26 Engine Move validated. Notifying other players
+04-11 23:05:26 Engine Notifying player 1 of last move
+04-11 23:05:26 Engine Notifying player 2 of last move
+04-11 23:05:26 Engine Finished processing player 2's move
+04-11 23:05:26 Engine Processing move #3
+04-11 23:05:26 Engine Getting preMove from list
+04-11 23:05:26 Engine Validating move: PlayerMove [playerId=1, stack=1, size=3, start=[-1, -1], end=[1, 3]]
+04-11 23:05:26 Engine Move validated. Notifying other players
+04-11 23:05:26 Engine Notifying player 1 of last move
+04-11 23:05:26 Engine Notifying player 2 of last move
+04-11 23:05:26 Engine Finished processing player 1's move
+04-11 23:05:26 Engine Processing move #4
+04-11 23:05:26 Engine Getting preMove from list
+04-11 23:05:26 Engine Validating move: PlayerMove [playerId=2, stack=2, size=4, start=[-1, -1], end=[2, 0]]
+04-11 23:05:26 Engine Move validated. Notifying other players
+04-11 23:05:26 Engine Notifying player 1 of last move
+04-11 23:05:26 Engine Notifying player 2 of last move
+04-11 23:05:26 Engine Finished processing player 2's move
+04-11 23:05:26 Engine Processing move #5
+04-11 23:05:26 Engine Getting preMove from list
+04-11 23:05:26 Engine Validating move: PlayerMove [playerId=1, stack=1, size=2, start=[-1, -1], end=[2, 3]]
+04-11 23:05:26 Engine Move validated. Notifying other players
+04-11 23:05:26 Engine Notifying player 1 of last move
+04-11 23:05:26 Engine Notifying player 2 of last move
+04-11 23:05:26 Engine Finished processing player 1's move
+04-11 23:05:26 Engine Processing move #6
+04-11 23:05:26 Engine Getting preMove from list
+04-11 23:05:26 Engine Validating move: PlayerMove [playerId=2, stack=1, size=3, start=[-1, -1], end=[3, 3]]
+04-11 23:05:26 Engine Move validated. Notifying other players
+04-11 23:05:26 Engine Notifying player 1 of last move
+04-11 23:05:26 Engine Notifying player 2 of last move
+04-11 23:05:26 Engine Finished processing player 2's move
+04-11 23:05:26 Engine Processing move #7
+04-11 23:05:26 Engine Getting preMove from list
+04-11 23:05:26 Engine Validating move: PlayerMove [playerId=1, stack=2, size=4, start=[-1, -1], end=[0, 0]]
+04-11 23:05:26 Engine Move validated. Notifying other players
+04-11 23:05:26 Engine Notifying player 1 of last move
+04-11 23:05:26 Engine Notifying player 2 of last move
+04-11 23:05:26 Engine Finished processing player 1's move
+04-11 23:05:26 Engine Processing move #8
+04-11 23:05:26 Engine Getting preMove from list
+04-11 23:05:26 Engine Validating move: PlayerMove [playerId=2, stack=2, size=3, start=[-1, -1], end=[2, 3]]
+04-11 23:05:26 Engine Move validated. Notifying other players
+04-11 23:05:26 Engine Notifying player 1 of last move
+04-11 23:05:26 Engine Notifying player 2 of last move
+04-11 23:05:26 Engine Finished processing player 2's move
+04-11 23:05:26 Engine Processing move #9
+04-11 23:05:26 Engine Getting preMove from list
+04-11 23:05:26 Engine Validating move: PlayerMove [playerId=1, stack=0, size=4, start=[0, 0], end=[2, 3]]
+04-11 23:05:26 Engine Move validated. Notifying other players
+04-11 23:05:26 Engine Notifying player 1 of last move
+04-11 23:05:26 Engine Notifying player 2 of last move
+04-11 23:05:26 Engine Finished processing player 1's move
+04-11 23:05:26 Engine Processing move #10
+04-11 23:05:26 Engine Getting preMove from list
+04-11 23:05:26 Engine Validating move: PlayerMove [playerId=2, stack=1, size=2, start=[-1, -1], end=[2, 2]]
+04-11 23:05:26 Engine Move validated. Notifying other players
+04-11 23:05:26 Engine Notifying player 1 of last move
+04-11 23:05:26 Engine Notifying player 2 of last move
+04-11 23:05:26 Engine Finished processing player 2's move
+04-11 23:05:26 Engine Processing move #11
+04-11 23:05:26 Engine Getting preMove from list
+04-11 23:05:26 Engine Validating move: PlayerMove [playerId=1, stack=0, size=3, start=[1, 3], end=[2, 2]]
+04-11 23:05:27 Engine Move validated. Notifying other players
+04-11 23:05:27 Engine Notifying player 1 of last move
+04-11 23:05:27 Engine Notifying player 2 of last move
+04-11 23:05:27 Engine Finished processing player 1's move
+04-11 23:05:27 Engine Processing move #12
+04-11 23:05:27 Engine Getting preMove from list
+04-11 23:05:27 Engine Validating move: PlayerMove [playerId=2, stack=0, size=4, start=[0, 2], end=[2, 2]]
+04-11 23:05:27 Engine Move validated. Notifying other players
+04-11 23:05:27 Engine Notifying player 1 of last move
+04-11 23:05:27 Engine Notifying player 2 of last move
+04-11 23:05:27 Engine Finished processing player 2's move
+04-11 23:05:27 Engine Processing move #13
+04-11 23:05:27 Engine Getting preMove from list
+04-11 23:05:27 Engine Validating move: PlayerMove [playerId=1, stack=2, size=3, start=[-1, -1], end=[1, 3]]
+04-11 23:05:27 Engine Move validated. Notifying other players
+04-11 23:05:27 Engine Notifying player 1 of last move
+04-11 23:05:27 Engine Notifying player 2 of last move
+04-11 23:05:27 Engine Finished processing player 1's move
+04-11 23:05:27 Engine Processing move #14
+04-11 23:05:27 Engine Getting preMove from list
+04-11 23:05:27 Engine Validating move: PlayerMove [playerId=2, stack=1, size=1, start=[-1, -1], end=[0, 0]]
+04-11 23:05:27 Engine Move validated. Notifying other players
+04-11 23:05:27 Engine Notifying player 1 of last move
+04-11 23:05:27 Engine Notifying player 2 of last move
+04-11 23:05:27 Engine Finished processing player 2's move
+04-11 23:05:27 Engine Processing move #15
+04-11 23:05:27 Engine Getting preMove from list
+04-11 23:05:27 Engine Validating move: PlayerMove [playerId=1, stack=3, size=4, start=[-1, -1], end=[0, 0]]
+04-11 23:05:27 Engine Move validated. Notifying other players
+04-11 23:05:27 Engine Notifying player 1 of last move
+04-11 23:05:27 Engine Notifying player 2 of last move
+04-11 23:05:27 Engine Finished processing player 1's move
+04-11 23:05:27 Engine Processing move #16
+04-11 23:05:27 Engine Getting preMove from list
+04-11 23:05:27 Engine Validating move: PlayerMove [playerId=2, stack=3, size=4, start=[-1, -1], end=[1, 3]]
+04-11 23:05:27 Engine Move validated. Notifying other players
+04-11 23:05:27 Engine Notifying player 1 of last move
+04-11 23:05:27 Engine Notifying player 2 of last move
+04-11 23:05:27 Engine Finished processing player 2's move
+04-11 23:05:27 Engine Processing human move #17
+04-11 23:05:27 Engine Waiting for human move...
+04-11 23:07:49 Engine Downloaded human move
+04-11 23:07:49 Engine Move validated. Notifying other players
+04-11 23:07:49 Engine Notifying player 1 of last move
+04-11 23:07:49 Engine Notifying player 2 of last move
+04-11 23:07:49 Engine Finished processing player 1's move
+04-11 23:07:49 Engine Processing human move #18
+04-11 23:07:49 Engine Waiting for human move...
+04-11 23:08:02 Engine Downloaded human move
+04-11 23:08:02 Engine Move validated. Notifying other players
+04-11 23:08:02 Engine Notifying player 1 of last move
+04-11 23:08:02 Engine Notifying player 2 of last move
+04-11 23:08:02 Engine Finished processing player 2's move
+04-11 23:08:02 Engine Processing human move #19
+04-11 23:08:02 Engine Waiting for human move...
+04-11 23:08:17 Engine Downloaded human move
+04-11 23:08:17 Engine Move validated. Notifying other players
+04-11 23:08:17 Engine Notifying player 1 of last move
+04-11 23:08:17 Engine Notifying player 2 of last move
+04-11 23:08:17 Engine Finished processing player 1's move
+04-11 23:08:17 Engine Processing human move #20
+04-11 23:08:17 Engine Waiting for human move...
+04-11 23:08:20 Engine Downloaded human move
+04-11 23:08:20 Engine Move validated. Notifying other players
+04-11 23:08:20 Engine Notifying player 1 of last move
+04-11 23:08:20 Engine Notifying player 2 of last move
+04-11 23:08:20 Engine Finished processing player 2's move
+04-11 23:08:20 Engine Processing human move #21
+04-11 23:08:20 Engine Waiting for human move...
+04-11 23:08:51 Engine Downloaded human move
+04-11 23:08:51 Engine Move validated. Notifying other players
+04-11 23:08:51 Engine Notifying player 1 of last move
+04-11 23:08:51 Engine Notifying player 2 of last move
+04-11 23:08:51 Engine Finished processing player 1's move
+04-11 23:08:51 Engine Processing human move #22
+04-11 23:08:51 Engine Waiting for human move...
+04-11 23:08:55 Engine Downloaded human move
+04-11 23:08:55 Engine Move validated. Notifying other players
+04-11 23:08:55 Engine Notifying player 1 of last move
+04-11 23:08:55 Engine Notifying player 2 of last move
+04-11 23:08:55 Engine Finished processing player 2's move
+04-11 23:08:55 Engine Processing human move #23
+04-11 23:08:55 Engine Waiting for human move...
+04-11 23:09:01 Engine Downloaded human move
+04-11 23:09:01 Engine Move validated. Notifying other players
+04-11 23:09:01 Engine Notifying player 1 of last move
+04-11 23:09:01 Engine Notifying player 2 of last move
+04-11 23:09:01 Engine Finished processing player 1's move
+04-11 23:09:01 Engine Processing human move #24
+04-11 23:09:01 Engine Waiting for human move...
