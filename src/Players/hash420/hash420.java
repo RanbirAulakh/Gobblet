@@ -259,7 +259,140 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	@Override
 	public PlayerMove move() {
 		
-		//use to find valid move.
+		PlayerMove move;
+		int stack=0;
+		int defendRow = 0;
+		int defendCol = 0;
+		boolean threatning = false;
+		int owner;
+		
+		int empty=0;
+		
+		//selecting the correct player's stack
+		if(playerID==1)
+		{
+			for(int i=1; i<player1.length; i++)
+			{
+				//if the stack is not empty take that stack
+				if( !( player1[i].isEmpty() ) )
+				{
+					stack= this.getTopSizeOnStack(playerID, i);
+					break;
+				}
+			}
+			
+			/*----------------------------------
+			 * CURRENT BOARD STATE              |
+			 *                                  |
+			 *---------------------------------*/
+			
+			//is there any current threatening position?
+			//rows threatening
+			for(int check = 0; check<board.length; check++)
+			{
+				int threat = 1;
+				int emptyTemp = 0;
+				for(int row = 0; row<board.length; row++)
+				{
+					owner = getTopOwnerOnBoard(check, row);
+				
+					if(owner==2)
+					{
+						threat++;
+					}
+					//if i am also on that row then break since there is no way that nigga is going to win cause my piece is stopping him
+					else if(owner==1)
+					{
+						break;
+					}
+					
+					else if(owner==-1)
+					{
+						defendRow = row;
+						defendCol = check;
+					}
+					
+					//we have reach the end of a row
+					if(row==board.length && threat==3)
+					{
+						threatning = true;
+						break;
+					}
+				}
+			}//end of  rows threatning
+			
+			//diagonal threatning positions
+			if(!threatning)
+			{
+				int threat=1;
+				//diagonal 1
+				for(int check= 0; check<board.length; check++)
+				{
+					owner=getTopOwnerOnBoard(check, check);
+					
+					if(owner==2)
+					{
+						threat++;
+					}
+					
+					//i am in the row... now worries :-)
+					else if(owner==1)
+					{
+						break;//exist the loop 
+					}
+					
+					else if(owner==-1)
+					{
+						empty++;
+						defendRow = check;
+						defendCol = check;
+					}
+					
+					//i have reached the end of the board
+					if(check==board.length && threat == 3)
+					{
+						threatning = true;
+					}
+				}
+			}//end of diagonal 1
+			
+			if(!threatning)
+			{
+				int row=0, col = 3;
+				int threat = 0;
+				while(row<3 && col>0)
+				{
+					owner=getTopOwnerOnBoard(row, col);
+					
+					if(owner==2)
+					{
+						threat++;
+					}
+					
+					//i am in the row... now worries :-)
+					else if(owner==1)
+					{
+						break;//exist the loop 
+					}
+					
+					else if(owner==-1)
+					{
+						defendRow = row;
+						defendCol = col;
+					}
+					
+					//i have reached the end of the board
+					if(row==3&& col==0 && threat == 3)
+					{
+						threatning = true;
+					}
+					
+					row++; col--;
+				 }//end of while
+			}
+			
+		}
+		
 		
 		//this is the function that
 		
