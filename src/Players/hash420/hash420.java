@@ -260,30 +260,32 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	@Override
 	public PlayerMove move() 
 	{
-		
+
 		PlayerMove move = null;
 		int stack = 0;
 		int piece = 0;
 		Coordinate start = new Coordinate(-1,-1);
-	    Coordinate end = new Coordinate(-1,-1);
+		Coordinate end = new Coordinate(-1,-1);
+		int empty=0;
 		boolean moved = false;
-		
+
 		//selecting the correct player's stack
 		if(playerID==1)
 		{
-			System.out.println("Size is: " + player1.length);
-			for(int i=1; i<(player1.length+1); i++)
+			for(int i=1; i<(player1.length); i++)
 			{
 				//if the stack is not empty take that stack
 				if( !( player1[i-1].isEmpty() ) )
 				{
-					
+
 					piece= this.getTopSizeOnStack(playerID, i);
 					stack = i;
+					System.out.println("We have got here");
 					break;
 				}
-			}
-			
+				
+			 }
+
 			/*----------------------------------
 			 * CURRENT BOARD STATE              |
 			 *                                  |
@@ -291,12 +293,12 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 			//can i current use any of my pieces to gobble the opponent's piece?
 			for(int col=0; col<board.length; col++)
 			{
-
 				for(int row = 0; row<board.length; row++)
 				{
-					int myPiece = this.getTopOwnerOnBoard(row, col);
-					if(myPiece==1)
+					int owner = this.getTopOwnerOnBoard(row, col);
+					if(owner==1)
 					{
+						int myPiece = this.getTopSizeOnBoard(row, col);
 						//compare it against everything on the board
 
 						for(int boardCol = 0; boardCol<board.length; boardCol++)
@@ -304,23 +306,36 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 							for(int boardRow = 0; boardRow<board.length; boardRow++)
 							{
 								//this piece is the opponent's piece
-								if(this.getTopOwnerOnBoard(boardCol, boardRow)==2)
+								if(this.getTopOwnerOnBoard(boardRow, boardCol)!=1 && this.getTopOwnerOnBoard(boardRow, boardCol)!=-1 )
 								{
+									int opponentPiece = this.getTopSizeOnBoard(boardRow, boardCol);
 									//is my piece greater than the opponet?
-									if(myPiece>this.getTopSizeOnBoard(boardCol, boardRow))
+									if(myPiece>opponentPiece)
 									{
+										System.out.println (" My piece: " + myPiece + " Opponent piece: "+ opponentPiece);
+										System.out.println("MADE IT HERE!");
+										System.out.println(boardRow +" "+ boardCol);
+										stack=0;
+										piece= myPiece;
 										start = new Coordinate(row, col);
 										end = new Coordinate(boardRow, boardCol);
 										moved =  true;
 										break;
 									}
 								}
+								if(moved)
+									break;
 							}
+							if(moved)
+								break;
+						
 						}
+						if(moved)
+							break;
 					}
 				}
 			}
-			
+
 			//adding the piece to the board from the stack
 			if(moved==false)
 			{
@@ -338,13 +353,13 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 					}
 				}
 			}
-			
+
 		}//end of if player 1
 		if(moved)
 		{
 			move = new PlayerMove(playerID, stack, piece, start, end);
 		}
-		
+
 		return move;
 	}
 	
