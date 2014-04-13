@@ -10,7 +10,7 @@ API_KEY 3b5d99d3a38554f23c2
 # List of player modules separated by commas.  
 # The number of modules listed here specifies the number of players in the game 
 # To play via the GUI, use Human.  
-PLAYER_MODULES Human, Human
+PLAYER_MODULES hash420, Human
 
 # Enables multi-client play
 REMOTE False
@@ -49,22 +49,20 @@ STDOUT_LOGGING True
 # Uncomment them to use them.
 # Format for PlayerMove(playerId, stack, size, start, end)
 #
-PRE_MOVE PlayerMove(1,1,4,-1,-1,0,3)              # Move 1
-PRE_MOVE PlayerMove(2,1,4,-1,-1,0,2)              # Move 2
-PRE_MOVE PlayerMove(1,1,3,-1,-1,1,3)              # Move 3
-PRE_MOVE PlayerMove(2,2,4,-1,-1,2,0)              # Move 4
-PRE_MOVE PlayerMove(1,1,2,-1,-1,2,3)              # Move 5
-PRE_MOVE PlayerMove(2,1,3,-1,-1,3,3)              # Move 6
-PRE_MOVE PlayerMove(1,2,4,-1,-1,0,0)              # Move 7
-PRE_MOVE PlayerMove(2,2,3,-1,-1,2,3)              # Move 8
-PRE_MOVE PlayerMove(1,0,4, 0, 0,2,3)              # Move 9
-PRE_MOVE PlayerMove(2,1,2,-1,-1,2,2)              # Move 10
-PRE_MOVE PlayerMove(1,0,3, 1, 3,2,2)              # Move 11
-PRE_MOVE PlayerMove(2,0,4, 0, 2,2,2)              # Move 12
-PRE_MOVE PlayerMove(1,2,3,-1,-1,1,3)              # Move 13
-PRE_MOVE PlayerMove(2,1,1,-1,-1,0,0)              # Move 14
-PRE_MOVE PlayerMove(1,3,4,-1,-1,0,0)              # Move 15
-PRE_MOVE PlayerMove(2,3,4,-1,-1,1,3)              # Move 16
+PRE_MOVE PlayerMove(1,1,4,-1,-1,2,1)              # Move 1
+PRE_MOVE PlayerMove(2,3,4,-1,-1,1,2)              # Move 2
+PRE_MOVE PlayerMove(1,1,3,-1,-1,0,3)              # Move 3
+PRE_MOVE PlayerMove(2,1,4,-1,-1,3,2)              # Move 4
+PRE_MOVE PlayerMove(1,1,2,-1,-1,2,2)              # Move 5
+PRE_MOVE PlayerMove(2,2,4,-1,-1,2,3)              # Move 6
+PRE_MOVE PlayerMove(1,1,1,-1,-1,1,3)              # Move 7
+PRE_MOVE PlayerMove(2,1,3,-1,-1,1,1)              # Move 8
+PRE_MOVE PlayerMove(1,2,4,-1,-1,0,0)              # Move 9
+PRE_MOVE PlayerMove(2,1,2,-1,-1,3,3)              # Move 10
+PRE_MOVE PlayerMove(1,2,3,-1,-1,3,1)              # Move 11
+PRE_MOVE PlayerMove(2,1,1,-1,-1,1,0)              # Move 12
+PRE_MOVE PlayerMove(1,2,2,-1,-1,2,0)              # Move 13
+PRE_MOVE PlayerMove(2,2,4,-1,-1,3,0)              # Move 14 (Invalid)  
 
 # To see the moves above play from a pre-recording, go to
 # URL: https://yendor.cs.rit.edu/~royale/gobblet/gameview/public.5a47c1d6a75dfbd71abe361a72b7324d7510a206530a3bea3cbce/animations.500/gameid.392/

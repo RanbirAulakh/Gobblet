@@ -258,7 +258,8 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	 * stubbed out for part 1. (Suggestion: "throw new UnsupportedOperationException()")
 	 */
 	@Override
-	public PlayerMove move() {
+	public PlayerMove move() 
+	{
 		
 		PlayerMove move = null;
 		int stack = 0;
@@ -270,10 +271,11 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 		//selecting the correct player's stack
 		if(playerID==1)
 		{
-			for(int i=1; i<player1.length; i++)
+			System.out.println("Size is: " + player1.length);
+			for(int i=1; i<(player1.length+1); i++)
 			{
 				//if the stack is not empty take that stack
-				if( !( player1[i].isEmpty() ) )
+				if( !( player1[i-1].isEmpty() ) )
 				{
 					
 					piece= this.getTopSizeOnStack(playerID, i);
@@ -286,7 +288,6 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 			 * CURRENT BOARD STATE              |
 			 *                                  |
 			 *---------------------------------*/
-			
 			//can i current use any of my pieces to gobble the opponent's piece?
 			for(int col=0; col<board.length; col++)
 			{
@@ -317,7 +318,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 							}
 						}
 					}
-				}//end of gobblet the opponent piece while i am on the board
+				}
 			}
 			
 			//adding the piece to the board from the stack
@@ -338,89 +339,11 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 				}
 			}
 			
-			
-		}//end of if player 1
-		
-		//player2
-		//selecting the correct player's stack
-		if(playerID==2)
-		{
-			for(int i=1; i<player2.length; i++)
-			{
-				//if the stack is not empty take that stack
-				if( !( player2[i].isEmpty() ) )
-				{
-
-					piece= this.getTopSizeOnStack(playerID, i);
-					stack = i;
-					break;
-				}
-			}
-
-			/*----------------------------------
-			 * CURRENT BOARD STATE              |
-			 *                                  |
-			 *---------------------------------*/
-
-			//can i current use any of my pieces to gobble the opponent's piece?
-			for(int col=0; col<board.length; col++)
-			{
-
-				for(int row = 0; row<board.length; row++)
-				{
-					int myPiece = this.getTopOwnerOnBoard(row, col);
-					if(myPiece==2)
-					{
-						//compare it against everything on the board
-
-						for(int boardCol = 0; boardCol<board.length; boardCol++)
-						{
-							for(int boardRow = 0; boardRow<board.length; boardRow++)
-							{
-								//this piece is the opponent's piece
-								if(this.getTopOwnerOnBoard(boardCol, boardRow)==1)
-								{
-									//is my piece greater than the opponet?
-									if(myPiece>this.getTopSizeOnBoard(boardCol, boardRow))
-									{
-										start = new Coordinate(row, col);
-										end = new Coordinate(boardRow, boardCol);
-										moved =  true;
-										break;
-									}
-								}
-							}
-						}
-					}
-				}//end of gobblet the opponent piece while i am on the board
-			}
-
-			//adding the piece to the board from the stack
-			if(moved==false)
-			{
-				for(int col = 0; col<board.length; col++)
-				{
-					for(int row=0; row<board.length; row++)
-					{
-						//an empty row on the board is found
-						if(this.getTopSizeOnBoard(col, row)==-1)
-						{
-							start = new Coordinate(-1,-1);
-							end =  new Coordinate(col, row);
-							moved= true;
-						}
-					}
-				}
-			}
-
-
 		}//end of if player 1
 		if(moved)
 		{
 			move = new PlayerMove(playerID, stack, piece, start, end);
 		}
-		
-		//this is the function that
 		
 		return move;
 	}
