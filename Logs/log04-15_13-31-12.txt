@@ -1,0 +1,132 @@
+04-15 13:31:12 Engine Gobblet Java Client v1.1 by RIT CS Department starting up
+04-15 13:31:12 Engine Loading player hash420
+04-15 13:31:12 Engine Loading player EasyPlayer
+04-15 13:31:12 Engine Loaded 2 players
+04-15 13:31:15 Engine Calling init() for player 1
+04-15 13:31:15 Engine Calling init() for player 2
+04-15 13:31:16 Model  GUI accessible at:
+https://yendor.cs.rit.edu/~royale/gobblet/gameview/animations.500/public.5c28c3ee7e5da02472384675d7302336a4a237cf534d6cf57173e/gameid.15111/myplayer.0/
+04-15 13:31:16 Engine Processing move #1
+04-15 13:31:16 Engine Getting preMove from list
+04-15 13:31:16 Engine Validating move: PlayerMove [playerId=1, stack=1, size=4, start=[-1, -1], end=[2, 1]]
+04-15 13:31:16 Engine Move validated. Notifying other players
+04-15 13:31:16 Engine Notifying player 1 of last move
+04-15 13:31:16 Engine Notifying player 2 of last move
+04-15 13:31:16 -+-+-+-+-Easy PlayerMove(1,1,4,-1,-1,2,1)
+04-15 13:31:16 Engine Finished processing player 1's move
+04-15 13:31:16 Engine Processing move #2
+04-15 13:31:16 Engine Getting preMove from list
+04-15 13:31:16 Engine Validating move: PlayerMove [playerId=2, stack=3, size=4, start=[-1, -1], end=[1, 2]]
+04-15 13:31:16 Engine Move validated. Notifying other players
+04-15 13:31:16 Engine Notifying player 1 of last move
+04-15 13:31:16 Engine Notifying player 2 of last move
+04-15 13:31:16 -+-+-+-+-Easy PlayerMove(2,3,4,-1,-1,1,2)
+04-15 13:31:16 Engine Finished processing player 2's move
+04-15 13:31:16 Engine Processing move #3
+04-15 13:31:16 Engine Getting preMove from list
+04-15 13:31:16 Engine Validating move: PlayerMove [playerId=1, stack=1, size=3, start=[-1, -1], end=[0, 3]]
+04-15 13:31:16 Engine Move validated. Notifying other players
+04-15 13:31:16 Engine Notifying player 1 of last move
+04-15 13:31:16 Engine Notifying player 2 of last move
+04-15 13:31:16 -+-+-+-+-Easy PlayerMove(1,1,3,-1,-1,0,3)
+04-15 13:31:16 Engine Finished processing player 1's move
+04-15 13:31:16 Engine Processing move #4
+04-15 13:31:16 Engine Getting preMove from list
+04-15 13:31:16 Engine Validating move: PlayerMove [playerId=2, stack=1, size=4, start=[-1, -1], end=[3, 2]]
+04-15 13:31:16 Engine Move validated. Notifying other players
+04-15 13:31:16 Engine Notifying player 1 of last move
+04-15 13:31:16 Engine Notifying player 2 of last move
+04-15 13:31:16 -+-+-+-+-Easy PlayerMove(2,1,4,-1,-1,3,2)
+04-15 13:31:16 Engine Finished processing player 2's move
+04-15 13:31:16 Engine Processing move #5
+04-15 13:31:16 Engine Getting preMove from list
+04-15 13:31:16 Engine Validating move: PlayerMove [playerId=1, stack=1, size=2, start=[-1, -1], end=[2, 2]]
+04-15 13:31:16 Engine Move validated. Notifying other players
+04-15 13:31:16 Engine Notifying player 1 of last move
+04-15 13:31:16 Engine Notifying player 2 of last move
+04-15 13:31:16 -+-+-+-+-Easy PlayerMove(1,1,2,-1,-1,2,2)
+04-15 13:31:16 Engine Finished processing player 1's move
+04-15 13:31:16 Engine Processing move #6
+04-15 13:31:16 Engine Getting preMove from list
+04-15 13:31:16 Engine Validating move: PlayerMove [playerId=2, stack=2, size=4, start=[-1, -1], end=[2, 3]]
+04-15 13:31:16 Engine Move validated. Notifying other players
+04-15 13:31:16 Engine Notifying player 1 of last move
+04-15 13:31:16 Engine Notifying player 2 of last move
+04-15 13:31:16 -+-+-+-+-Easy PlayerMove(2,2,4,-1,-1,2,3)
+04-15 13:31:16 Engine Finished processing player 2's move
+04-15 13:31:16 Engine Processing move #7
+04-15 13:31:16 Engine Getting preMove from list
+04-15 13:31:16 Engine Validating move: PlayerMove [playerId=1, stack=1, size=1, start=[-1, -1], end=[1, 3]]
+04-15 13:31:16 Engine Move validated. Notifying other players
+04-15 13:31:16 Engine Notifying player 1 of last move
+04-15 13:31:16 Engine Notifying player 2 of last move
+04-15 13:31:16 -+-+-+-+-Easy PlayerMove(1,1,1,-1,-1,1,3)
+04-15 13:31:16 Engine Finished processing player 1's move
+04-15 13:31:16 Engine Processing move #8
+04-15 13:31:16 Engine Getting preMove from list
+04-15 13:31:16 Engine Validating move: PlayerMove [playerId=2, stack=1, size=3, start=[-1, -1], end=[1, 1]]
+04-15 13:31:16 Engine Move validated. Notifying other players
+04-15 13:31:16 Engine Notifying player 1 of last move
+04-15 13:31:16 Engine Notifying player 2 of last move
+04-15 13:31:16 -+-+-+-+-Easy PlayerMove(2,1,3,-1,-1,1,1)
+04-15 13:31:16 Engine Finished processing player 2's move
+04-15 13:31:16 Engine Processing move #9
+04-15 13:31:16 Engine Getting preMove from list
+04-15 13:31:16 Engine Validating move: PlayerMove [playerId=1, stack=2, size=4, start=[-1, -1], end=[0, 0]]
+04-15 13:31:16 Engine Move validated. Notifying other players
+04-15 13:31:16 Engine Notifying player 1 of last move
+04-15 13:31:16 Engine Notifying player 2 of last move
+04-15 13:31:16 -+-+-+-+-Easy PlayerMove(1,2,4,-1,-1,0,0)
+04-15 13:31:16 Engine Finished processing player 1's move
+04-15 13:31:16 Engine Processing move #10
+04-15 13:31:16 Engine Getting preMove from list
+04-15 13:31:16 Engine Validating move: PlayerMove [playerId=2, stack=1, size=2, start=[-1, -1], end=[3, 3]]
+04-15 13:31:16 Engine Move validated. Notifying other players
+04-15 13:31:16 Engine Notifying player 1 of last move
+04-15 13:31:16 Engine Notifying player 2 of last move
+04-15 13:31:16 -+-+-+-+-Easy PlayerMove(2,1,2,-1,-1,3,3)
+04-15 13:31:16 Engine Finished processing player 2's move
+04-15 13:31:16 Engine Processing move #11
+04-15 13:31:16 Engine Getting preMove from list
+04-15 13:31:16 Engine Validating move: PlayerMove [playerId=1, stack=2, size=3, start=[-1, -1], end=[3, 1]]
+04-15 13:31:17 Engine Move validated. Notifying other players
+04-15 13:31:17 Engine Notifying player 1 of last move
+04-15 13:31:17 Engine Notifying player 2 of last move
+04-15 13:31:17 -+-+-+-+-Easy PlayerMove(1,2,3,-1,-1,3,1)
+04-15 13:31:17 Engine Finished processing player 1's move
+04-15 13:31:17 Engine Processing move #12
+04-15 13:31:17 Engine Getting preMove from list
+04-15 13:31:17 Engine Validating move: PlayerMove [playerId=2, stack=1, size=1, start=[-1, -1], end=[1, 0]]
+04-15 13:31:17 Engine Move validated. Notifying other players
+04-15 13:31:17 Engine Notifying player 1 of last move
+04-15 13:31:17 Engine Notifying player 2 of last move
+04-15 13:31:17 -+-+-+-+-Easy PlayerMove(2,1,1,-1,-1,1,0)
+04-15 13:31:17 Engine Finished processing player 2's move
+04-15 13:31:17 Engine Processing move #13
+04-15 13:31:17 Engine Getting preMove from list
+04-15 13:31:17 Engine Validating move: PlayerMove [playerId=1, stack=2, size=2, start=[-1, -1], end=[2, 0]]
+04-15 13:31:17 Engine Move validated. Notifying other players
+04-15 13:31:17 Engine Notifying player 1 of last move
+04-15 13:31:17 Engine Notifying player 2 of last move
+04-15 13:31:17 -+-+-+-+-Easy PlayerMove(1,2,2,-1,-1,2,0)
+04-15 13:31:17 Engine Finished processing player 1's move
+04-15 13:31:17 Engine Processing move #14
+04-15 13:31:17 Engine Getting preMove from list
+04-15 13:31:17 Engine Validating move: PlayerMove [playerId=2, stack=2, size=4, start=[-1, -1], end=[3, 0]]
+04-15 13:31:17 Model  Error: Incorrect piece size specified for player stack
+04-15 13:31:17 Engine Invalidating player 2
+04-15 13:31:17 Engine Notifying player 1 that player 2 was invalidated
+04-15 13:31:17 Engine Finished processing player 2's move
+04-15 13:31:17 Engine Processing move #15
+04-15 13:31:17 Engine Getting move from player 1
+04-15 13:31:17 Engine Validating move: PlayerMove [playerId=1, stack=2, size=1, start=[-1, -1], end=[0, 1]]
+04-15 13:31:17 Engine Move validated. Notifying other players
+04-15 13:31:17 Engine Notifying player 1 of last move
+04-15 13:31:17 Engine Finished processing player 1's move
+04-15 13:31:17 Engine Processing move #16
+04-15 13:31:17 Engine Getting move from player 1
+04-15 13:31:17 Engine Validating move: PlayerMove [playerId=1, stack=3, size=4, start=[-1, -1], end=[0, 2]]
+04-15 13:31:17 Engine Move validated. Notifying other players
+04-15 13:31:17 Engine Notifying player 1 of last move
+04-15 13:31:17 Engine Finished processing player 1's move
+04-15 13:31:17 Engine Game has ended

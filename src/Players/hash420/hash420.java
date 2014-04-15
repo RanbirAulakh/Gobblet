@@ -1,21 +1,21 @@
 /*
-* RSA5330.java
-*
-* Version:
-* $Id: RSA5330.java,v 1.3 2014/03/12 03:16:46 rsa5330 Exp $
-*
-* Revisions:
-* $Log: RSA5330.java,v $
-* Revision 1.3  2014/03/12 03:16:46  rsa5330
-* Finished with Project 2 Part1
-*
-* Revision 1.2  2014/03/11 23:29:13  rsa5330
-* Now working on the display.
-*
-* Revision 1.1  2014/03/07 14:18:15  rsa5330
-* Uploaded to CVS
-*
-*/
+ * RSA5330.java
+ *
+ * Version:
+ * $Id: RSA5330.java,v 1.3 2014/03/12 03:16:46 rsa5330 Exp $
+ *
+ * Revisions:
+ * $Log: RSA5330.java,v $
+ * Revision 1.3  2014/03/12 03:16:46  rsa5330
+ * Finished with Project 2 Part1
+ *
+ * Revision 1.2  2014/03/11 23:29:13  rsa5330
+ * Now working on the display.
+ *
+ * Revision 1.1  2014/03/07 14:18:15  rsa5330
+ * Uploaded to CVS
+ *
+ */
 package Players.hash420;
 
 import Engine.Logger;
@@ -33,16 +33,16 @@ import Interface.Coordinate;
  */
 
 public class hash420 implements PlayerModule, GobbletPart1 {
-	
+
 	private int playerID;
 	private Logger log;
 	private PlayerMove lastMove;
 	private final int ROW = 4, COL = 4;
 	private Stack<Piece>[][] board = new Stack[ROW][COL];
-	private Stack<Piece>[] player1 = new Stack[3];//my partner's structure of how he keep player1's stack 
+	private Stack<Piece>[] player1 = new Stack[3];
 	private Stack<Piece>[] player2 = new Stack[3];
-	
-	
+
+
 	/**
 	 * Display, on standard output, a representation of how the physical game 
 	 * would appear at this point in time. The format is as follows. On the 
@@ -61,7 +61,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	public void dumpGameState()
 	{
 		String[] printOut = new String[4];
-		
+
 		int chumpVariable;
 		for(int i = 0; i < 4; i++)
 		{
@@ -72,10 +72,10 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 				printOut[i] += (chumpVariable==-1) ?
 						"    []"
 						: "  " +getTopSizeOnBoard(i,x) + "(" + chumpVariable + ")";
-				
+
 			}
 		}
-		
+
 		for(int i = 0; i < 4; i+=2)//only first and 3rd
 		{
 			for(int x = 1; x < 4; x++)
@@ -84,10 +84,10 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 					getTopSizeOnStack(2, x);
 				printOut[i] += (chumpVariable == -1) ? 
 						"  _" :
-						"  " + chumpVariable;
+							"  " + chumpVariable;
 			}
 		}
-		
+
 		//print
 		for(int i = 0; i < printOut.length; i++)
 			System.out.println(printOut[i]);
@@ -101,7 +101,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	public int getID() {
 		return this.playerID;
 	}
-	
+
 	/**
 	 * Describe what is visible on the board at a given location.
 	 * @param ROW - the row of interest on the board (0-based)
@@ -123,7 +123,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 		}
 		return board[arg0][arg1].peek().getOwnerID(); 
 	}
-		
+
 	/**
 	 * Describe what is visible on the board at a given location.
 	 * @param ROW - the row of interest on the board (0-based)
@@ -144,7 +144,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 		}		
 		return board[arg0][arg1].peek().getSize();
 	}
-	
+
 	/**
 	 * Describe what remains on top of one of the stacks of 
 	 * unplayed pieces of a certain player.
@@ -162,7 +162,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 		 * then return player1.peek and player2.peek?
 		 */
 		int unplayedPieces = 0;
-		
+
 		if(arg0 == 1){
 			if(player1[arg1 - 1].empty()){
 				return -1;
@@ -177,7 +177,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 		}
 		return unplayedPieces;
 	}
-	
+
 	/**
 	 * Initializes the player module.
 	 * param logger - reference to the logger class
@@ -187,15 +187,15 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	public void init(Logger arg0, int arg1) {		
 		this.log = arg0;
 		this.playerID = arg1;
-		
+
 		for (int i = 0; i < ROW; i++){
-		    for (int j = 0; j < COL; j++){
-		        board[i][j] = new Stack<Piece>();
-		        //System.out.print(board[i][j]);
-		    }
-		    //System.out.println();
+			for (int j = 0; j < COL; j++){
+				board[i][j] = new Stack<Piece>();
+				//System.out.print(board[i][j]);
+			}
+			//System.out.println();
 		}
-		
+
 		for (int x = 0; x < 3; x++){
 			player1[x] = new Stack<Piece>();
 			player2[x] = new Stack<Piece>();
@@ -203,16 +203,16 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 				/*
 				 * make each stack once
 				 */				
-				
+
 				Piece size = new Piece(y, 1);
 				Piece size1 = new Piece(y, 2);
-				
+
 				player1[x].push(size);
 				player2[x].push(size1);
 			}
 		}
 	}
-	
+
 	/**
 	 * Notifies the player of a valid move that was just made. This is 
 	 * called when any player (including this one) has made a move 
@@ -224,7 +224,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 		this.lastMove = arg0;
 		int pop = 0;
 		Piece popFromboard;
-		
+
 		//System.out.println("THE STACK: " + lastMove.getStack());
 		if(lastMove.getPlayerId() == 1){
 			if(lastMove.getStartRow() == -1 && lastMove.getStartCol() == -1){
@@ -247,7 +247,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 			}
 		}
 	}
-	
+
 	/**
 	 * Called when it's this player's turn to make a move. The player module 
 	 * should choose a move, construct a valid PlayerMove object that represents
@@ -306,7 +306,10 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 				 * can still loose easily
 				 * but decided to implement
 				 * this since the hash420 is
-				 * too dumb without it
+				 * too dumb without it. 
+				 * This only give it simple
+				 * defending techniques for 
+				 * the rows
 				 *-------------------------*/
 				Coordinate temp = new Coordinate(-1,-1);
 				//is there any rows in the horizional threatning?
@@ -526,7 +529,6 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 		//selecting the correct player's stack
 		if(playerID==2)
 		{
-			System.out.println("PLAYER 2 HERE!");
 			//adding the piece to the board from the stack
 			if(moved==false)
 			{
@@ -751,7 +753,6 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 										//is my piece greater than the opponet?
 										if(myPiece>opponentPiece)
 										{
-											System.out.println(boardRow +" "+ boardCol);
 											stack = 0;
 
 											piece= myPiece;
@@ -779,7 +780,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 
 		return move;
 	}
-	
+
 	/**
 	 * Notifies the player that another player has been invalidated. In a 2 player game, 
 	 * this means the other player is now out of the game and this one just has to play 
@@ -790,7 +791,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	@Override
 	public void playerInvalidated(int arg0) {
 		System.out.println("Invalid move PLAYER " + arg0+ " HAS BEEN KICKED OUT");
-		
+
 	}
 
 }
