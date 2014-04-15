@@ -457,21 +457,63 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 
 
 				//END OF SIMPLE AI
-				//how about a boolean condition 
-				for(int col = 0; col<board.length && !moved;  col++)
+				if(!moved)
 				{
-					for(int row=0; row<board.length; row++)
+					if(stack==0)
 					{
-						//an empty row on the board is found
-						if(this.getTopSizeOnBoard(col, row)==-1)
+						for(int col = 0; col<board.length && !moved;  col++)
 						{
-							start = new Coordinate(-1,-1);
-							end =  new Coordinate(col, row);
-							moved= true;
-							break;
+							for(int row=0; row<board.length; row++)
+							{
+								//just take my one of my piece regard less of outcome
+								if(this.getTopOwnerOnBoard(col, row)==1 && this.getTopOwnerOnBoard(col, row)!=-1)
+								{
+									start = new Coordinate(col, row);
+									piece = this.getTopSizeOnBoard(col, row);
+									moved= true;
+									break;
+								}
+							}
+						}
+						
+						moved = false;
+						//find an empty part on the board
+						//an empty row on the board is found
+						for(int col= 0; col<board.length&& !moved; col++)
+						{
+							for(int row = 0; row<board.length; row++)
+							{
+								if(this.getTopSizeOnBoard(col, row)==-1)
+								{
+									end =  new Coordinate(col, row);
+									moved= true;
+									break;
+								}
+							}
+						}
+
+
+
+					}//if stack is 0
+					else
+					{
+						for(int col= 0; col<board.length; col++)
+						{
+							for(int row = 0; row<board.length; row++)
+							{
+								if(this.getTopSizeOnBoard(col, row)==-1)
+								{
+									start = new Coordinate(-1,-1);
+									end =  new Coordinate(col, row);
+									moved= true;
+									break;
+								}
+							}
 						}
 					}
+
 				}
+
 			}
 
 
@@ -704,23 +746,64 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 
 
 				//END OF SIMPLE AI for player 1
-				//how about a boolean condition 
-				for(int col = 0; col<board.length && !moved;  col++)
+				if(!moved)
 				{
-					for(int row=0; row<board.length; row++)
+					if(stack==0)
 					{
-						//an empty row on the board is found
-						if(this.getTopSizeOnBoard(col, row)==-1)
+						for(int col = 0; col<board.length && !moved;  col++)
 						{
-							start = new Coordinate(-1,-1);
-							end =  new Coordinate(col, row);
-							moved= true;
-							break;
+							for(int row=0; row<board.length; row++)
+							{
+								//just take my one of my piece regard less of outcome
+								if(this.getTopOwnerOnBoard(col, row)==2 && this.getTopOwnerOnBoard(col, row)!=-1)
+								{
+									start = new Coordinate(col, row);
+									piece = this.getTopSizeOnBoard(col, row);
+									moved= true;
+									break;
+								}
+							}
+						}
+						
+						moved = false;
+						//find an empty part on the board
+						//an empty row on the board is found
+						for(int col= 0; col<board.length&& !moved; col++)
+						{
+							for(int row = 0; row<board.length; row++)
+							{
+								if(this.getTopSizeOnBoard(col, row)==-1)
+								{
+									end =  new Coordinate(col, row);
+									moved= true;
+									break;
+								}
+							}
+						}
+
+
+
+					}//if stack is 0
+					else
+					{
+						for(int col= 0; col<board.length; col++)
+						{
+							for(int row = 0; row<board.length; row++)
+							{
+								if(this.getTopSizeOnBoard(col, row)==-1)
+								{
+									start = new Coordinate(-1,-1);
+									end =  new Coordinate(col, row);
+									moved= true;
+									break;
+								}
+							}
 						}
 					}
-				}
-			}
 
+				}
+
+			}
 
 			//come up with moves that will make the board full
 
