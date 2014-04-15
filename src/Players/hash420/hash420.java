@@ -391,7 +391,6 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 					{
 						if(this.getTopOwnerOnBoard(col, row)!=1 && this.getTopOwnerOnBoard(col, row)!=-1)
 						{
-							System.out.println("Threat at : " + col + " " + row);
 							threat++;
 						}
 
@@ -406,15 +405,11 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 
 							empty++;
 							temp = new Coordinate(col, row);
-
-							System.out.println (" We arrived at this empty location : " + temp);
 						}
 
 						//get the location of the next empty space to defend myself
 						if(threat==3 && empty==1)
 						{
-							System.out.println("We arrive here you moron come on");
-							System.out.println("Threat : " + threat + " Empty: " +empty + " Coordinate : " + temp );
 							end = temp;
 							moved = true;
 						}
@@ -431,7 +426,6 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 					{
 						if(this.getTopOwnerOnBoard(col, row)!=1 && this.getTopOwnerOnBoard(col, row)!=-1)
 						{
-							System.out.println("Threat at : " + col + " " + row);
 							threat++;
 						}
 
@@ -446,15 +440,11 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 
 							empty++;
 							temp = new Coordinate(col, row);
-
-							System.out.println (" We arrived at this empty location : " + temp);
 						}
 
 						//get the location of the next empty space to defend myself
 						if(threat==3 && empty==1)
 						{
-							System.out.println("We arrive here you moron come on");
-							System.out.println("Threat : " + threat + " Empty: " +empty + " Coordinate : " + temp );
 							end = temp;
 							moved = true;
 						}
@@ -513,9 +503,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 										//is my piece greater than the opponet?
 										if(myPiece>opponentPiece)
 										{
-											System.out.println(boardRow +" "+ boardCol);
 											stack = 0;
-
 											piece= myPiece;
 											start = new Coordinate(row, col);
 											end = new Coordinate(boardRow, boardCol);
@@ -652,7 +640,6 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 					{
 						if(this.getTopOwnerOnBoard(col, row)!=2 && this.getTopOwnerOnBoard(col, row)!=-1)
 						{
-							System.out.println("Threat at : " + col + " " + row);
 							threat++;
 						}
 
@@ -667,15 +654,11 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 
 							empty++;
 							temp = new Coordinate(col, row);
-
-							System.out.println (" We arrived at this empty location : " + temp);
 						}
 
 						//get the location of the next empty space to defend myself
 						if(threat==3 && empty==1)
 						{
-							System.out.println("We arrive here you moron come on");
-							System.out.println("Threat : " + threat + " Empty: " +empty + " Coordinate : " + temp );
 							end = temp;
 							moved = true;
 						}
@@ -692,7 +675,6 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 					{
 						if(this.getTopOwnerOnBoard(col, row)!=2 && this.getTopOwnerOnBoard(col, row)!=-1)
 						{
-							System.out.println("Threat at : " + col + " " + row);
 							threat++;
 						}
 
@@ -704,18 +686,13 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 
 						else
 						{
-
 							empty++;
 							temp = new Coordinate(col, row);
-
-							System.out.println (" We arrived at this empty location : " + temp);
 						}
 
 						//get the location of the next empty space to defend myself
 						if(threat==3 && empty==1)
 						{
-							System.out.println("We arrive here you moron come on");
-							System.out.println("Threat : " + threat + " Empty: " +empty + " Coordinate : " + temp );
 							end = temp;
 							moved = true;
 						}
@@ -793,10 +770,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 				}
 			}
 
-
-			//for some reason it seems as if my code wont exist the loop when I break it
-
-		}//end of if player 1
+		}//end of if player 2
 		if(moved)
 		{
 			move = new PlayerMove(playerID, stack, piece, start, end);

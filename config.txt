@@ -10,7 +10,7 @@ API_KEY 3b5d99d3a38554f23c2
 # List of player modules separated by commas.  
 # The number of modules listed here specifies the number of players in the game 
 # To play via the GUI, use Human.  
-PLAYER_MODULES hash420,hash420
+PLAYER_MODULES hash420,Human
 
 # Enables multi-client play
 REMOTE False
