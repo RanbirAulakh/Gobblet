@@ -266,10 +266,8 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 		int piece = 0;
 		Coordinate start = new Coordinate(-1,-1);
 		Coordinate end = new Coordinate(-1,-1);
-		
 		boolean moved = false;
-		int threat = 0;
-		
+
 		/*---------------------------
 		 * SIMPLE AI..Nothing fancy
 		 * can still loose easily
@@ -302,42 +300,116 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 					}
 
 				}
-				
+
 				/*---------------------------
-				* SIMPLE AI..Nothing fancy
+				 * SIMPLE AI..Nothing fancy
 				 * can still loose easily
-				* but decided to implement
-				* this since the hash420 is
-				* too dumb without it
-				*-------------------------*/
+				 * but decided to implement
+				 * this since the hash420 is
+				 * too dumb without it
+				 *-------------------------*/
 				Coordinate temp = new Coordinate(-1,-1);
 				//is there any rows in the horizional threatning?
 				for(int col = 0; col<board.length && !moved; col++)
 				{
 					int empty=0;
-					
+					int threat = 0;
+
 					for(int row = 0; row<board.length; row++)
 					{
 						if(this.getTopOwnerOnBoard(col, row)!=1 && this.getTopOwnerOnBoard(col, row)!=-1)
 						{
 							threat++;
 						}
-						
+
 						//I am on this row as well. No worries :-)
 						else if(this.getTopOwnerOnBoard(col, row)==1)
 						{
 							break;//come out of the loop and check the next horizional row
 						}
-						
+
 						else
 						{
-							
+
 							empty++;
 							temp = new Coordinate(col, row);
-							
+						}
+
+						//get the location of the next empty space to defend myself
+						if(threat==3 && empty==1)
+						{
+							end = temp;
+							moved = true;
+
+						}
+					}
+
+				}
+				//is there any threating in the rows vertical?
+				for(int row = 0; row<board.length && !moved; row++)
+				{
+					int empty=0;
+					int threat = 0;
+
+					for(int col = 0; col<board.length; col++)
+					{
+						if(this.getTopOwnerOnBoard(col, row)!=1 && this.getTopOwnerOnBoard(col, row)!=-1)
+						{
+							threat++;
+						}
+
+						//I am on this row as well. No worries :-)..this is not true for every case but that is not important for part 2 :-)
+						else if(this.getTopOwnerOnBoard(col, row)==1)
+						{
+							break;//come out of the loop and check the next horizional row
+						}
+
+						else
+						{
+
+							empty++;
+							temp = new Coordinate(col, row);
+						}
+
+						//get the location of the next empty space to defend myself
+						if(threat==3 && empty==1)
+						{
+							end = temp;
+							moved = true;
+						}
+					}
+
+				}
+
+				//any threating in the diagonal 1
+				//is there any threating in the rows vertical?
+				if(!moved)
+				{
+					int col = 0, row = 3;
+					int empty=0, threat = 0;
+					while(row>=0 && col<board.length)
+					{
+						if(this.getTopOwnerOnBoard(col, row)!=1 && this.getTopOwnerOnBoard(col, row)!=-1)
+						{
+							System.out.println("Threat at : " + col + " " + row);
+							threat++;
+						}
+
+						//I am on this row as well. No worries :-)..this is not true for every case but that is not important for part 2 :-)
+						else if(this.getTopOwnerOnBoard(col, row)==1)
+						{
+							break;//come out of the loop and check the next horizional row
+						}
+
+						else
+						{
+
+							empty++;
+							temp = new Coordinate(col, row);
+
 							System.out.println (" We arrived at this empty location : " + temp);
 						}
-						
+
 						//get the location of the next empty space to defend myself
 						if(threat==3 && empty==1)
 						{
@@ -346,12 +418,51 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 							end = temp;
 							moved = true;
 						}
+						col++; row--;
 					}
-
 				}
-				
-				//is there any threating in the rows vertical? 
-				
+
+				//is there any threat in the diagonal 2?
+				if(!moved)
+				{
+					int col = 0, row = 0;
+					int empty=0, threat = 0;
+					while(row>board.length && col<board.length)
+					{
+						if(this.getTopOwnerOnBoard(col, row)!=1 && this.getTopOwnerOnBoard(col, row)!=-1)
+						{
+							System.out.println("Threat at : " + col + " " + row);
+							threat++;
+						}
+
+						//I am on this row as well. No worries :-)..this is not true for every case but that is not important for part 2 :-)
+						else if(this.getTopOwnerOnBoard(col, row)==1)
+						{
+							break;//come out of the loop and check the next horizional row
+						}
+
+						else
+						{
+
+							empty++;
+							temp = new Coordinate(col, row);
+
+							System.out.println (" We arrived at this empty location : " + temp);
+						}
+
+						//get the location of the next empty space to defend myself
+						if(threat==3 && empty==1)
+						{
+							System.out.println("We arrive here you moron come on");
+							System.out.println("Threat : " + threat + " Empty: " +empty + " Coordinate : " + temp );
+							end = temp;
+							moved = true;
+						}
+						col++; row++;
+					}
+				}
+
+
 				//END OF SIMPLE AI
 				//how about a boolean condition 
 				for(int col = 0; col<board.length && !moved;  col++)
@@ -370,8 +481,8 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 				}
 			}
 
-			
-//come up with moves that will make the board full
+
+			//come up with moves that will make the board full
 
 			/*----------------------------------
 			 * CURRENT BOARD STATE              |
@@ -420,9 +531,270 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 					}
 				}
 			}
-			
-			
-//for some reason it seems as if my code wont exist the loop when I break it
+
+		}//end of if player 1
+
+		//player 2
+		//selecting the correct player's stack
+		if(playerID==2)
+		{
+			System.out.println("PLAYER 2 HERE!");
+			//adding the piece to the board from the stack
+			if(moved==false)
+			{
+				for(int i=1; i<(player2.length +1); i++)
+				{
+					//if the stack is not empty take that stack
+					if( !( player2[i-1].isEmpty() ) )
+					{
+
+						piece= this.getTopSizeOnStack(playerID, i);
+						stack = i;
+						break;
+					}
+					else
+					{
+						if(i==player2.length+1)
+						{
+							stack = 0;
+						}
+					}
+
+				}
+
+				/*---------------------------
+				 * SIMPLE AI..Nothing fancy
+				 * can still loose easily
+				 * but decided to implement
+				 * this since the hash420 is
+				 * too dumb without it
+				 *-------------------------*/
+				Coordinate temp = new Coordinate(-1,-1);
+				//is there any rows in the horizional threatning?
+				for(int col = 0; col<board.length && !moved; col++)
+				{
+					int empty=0;
+					int threat = 0;
+
+					for(int row = 0; row<board.length; row++)
+					{
+						if(this.getTopOwnerOnBoard(col, row)!=2 && this.getTopOwnerOnBoard(col, row)!=-1)
+						{
+							threat++;
+						}
+
+						//I am on this row as well. No worries :-)
+						else if(this.getTopOwnerOnBoard(col, row)==2)
+						{
+							break;//come out of the loop and check the next horizional row
+						}
+
+						else
+						{
+
+							empty++;
+							temp = new Coordinate(col, row);
+						}
+
+						//get the location of the next empty space to defend myself
+						if(threat==3 && empty==1)
+						{
+							end = temp;
+							moved = true;
+
+						}
+					}
+
+				}
+				//is there any threating in the rows vertical?
+				for(int row = 0; row<board.length && !moved; row++)
+				{
+					int empty=0;
+					int threat = 0;
+
+					for(int col = 0; col<board.length; col++)
+					{
+						if(this.getTopOwnerOnBoard(col, row)!=2 && this.getTopOwnerOnBoard(col, row)!=-1)
+						{
+							threat++;
+						}
+
+						//I am on this row as well. No worries :-)..this is not true for every case but that is not important for part 2 :-)
+						else if(this.getTopOwnerOnBoard(col, row)==2)
+						{
+							break;//come out of the loop and check the next horizional row
+						}
+
+						else
+						{
+
+							empty++;
+							temp = new Coordinate(col, row);
+						}
+
+						//get the location of the next empty space to defend myself
+						if(threat==3 && empty==1)
+						{
+							end = temp;
+							moved = true;
+						}
+					}
+
+				}
+
+				//any threating in the diagonal 1
+				//is there any threating in the rows vertical?
+				if(!moved)
+				{
+					int col = 0, row = 3;
+					int empty=0, threat = 0;
+					while(row>=0 && col<board.length)
+					{
+						if(this.getTopOwnerOnBoard(col, row)!=2 && this.getTopOwnerOnBoard(col, row)!=-1)
+						{
+							System.out.println("Threat at : " + col + " " + row);
+							threat++;
+						}
+
+						//I am on this row as well. No worries :-)..this is not true for every case but that is not important for part 2 :-)
+						else if(this.getTopOwnerOnBoard(col, row)==2)
+						{
+							break;//come out of the loop and check the next horizional row
+						}
+
+						else
+						{
+
+							empty++;
+							temp = new Coordinate(col, row);
+
+							System.out.println (" We arrived at this empty location : " + temp);
+						}
+
+						//get the location of the next empty space to defend myself
+						if(threat==3 && empty==1)
+						{
+							System.out.println("We arrive here you moron come on");
+							System.out.println("Threat : " + threat + " Empty: " +empty + " Coordinate : " + temp );
+							end = temp;
+							moved = true;
+						}
+						col++; row--;
+					}
+				}
+
+				//is there any threat in the diagonal 2?
+				if(!moved)
+				{
+					int col = 0, row = 0;
+					int empty=0, threat = 0;
+					while(row>board.length && col<board.length)
+					{
+						if(this.getTopOwnerOnBoard(col, row)!=2 && this.getTopOwnerOnBoard(col, row)!=-1)
+						{
+							System.out.println("Threat at : " + col + " " + row);
+							threat++;
+						}
+
+						//I am on this row as well. No worries :-)..this is not true for every case but that is not important for part 2 :-)
+						else if(this.getTopOwnerOnBoard(col, row)==2)
+						{
+							break;//come out of the loop and check the next horizional row
+						}
+
+						else
+						{
+
+							empty++;
+							temp = new Coordinate(col, row);
+
+							System.out.println (" We arrived at this empty location : " + temp);
+						}
+
+						//get the location of the next empty space to defend myself
+						if(threat==3 && empty==1)
+						{
+							System.out.println("We arrive here you moron come on");
+							System.out.println("Threat : " + threat + " Empty: " +empty + " Coordinate : " + temp );
+							end = temp;
+							moved = true;
+						}
+						col++; row++;
+					}
+				}
+
+
+				//END OF SIMPLE AI for player 1
+				//how about a boolean condition 
+				for(int col = 0; col<board.length && !moved;  col++)
+				{
+					for(int row=0; row<board.length; row++)
+					{
+						//an empty row on the board is found
+						if(this.getTopSizeOnBoard(col, row)==-1)
+						{
+							start = new Coordinate(-1,-1);
+							end =  new Coordinate(col, row);
+							moved= true;
+							break;
+						}
+					}
+				}
+			}
+
+
+			//come up with moves that will make the board full
+
+			/*----------------------------------
+			 * CURRENT BOARD STATE              |
+			 *                                  |
+			 *---------------------------------*/
+			//can i current use any of my pieces on the board  to gobble the opponent's piece?
+			//so i would have a boolean to stop the other loops? 
+			if(moved==false)
+			{
+				for(int col=0; col<board.length && !moved; col++)
+				{
+					for(int row = 0; row<board.length &&!moved; row++)
+					{
+						int owner = this.getTopOwnerOnBoard(row, col);
+						if(owner==2)
+						{
+							int myPiece = this.getTopSizeOnBoard(row, col);
+							//compare it against everything on the board
+
+							for(int boardCol = 0; boardCol<board.length && !moved; boardCol++)
+							{
+								for(int boardRow = 0; boardRow<board.length; boardRow++)
+								{
+									//this piece is the opponent's piece
+									if(this.getTopOwnerOnBoard(boardRow, boardCol)!=2 && this.getTopOwnerOnBoard(boardRow, boardCol)!=-1 )
+									{
+										int opponentPiece = this.getTopSizeOnBoard(boardRow, boardCol);
+										//is my piece greater than the opponet?
+										if(myPiece>opponentPiece)
+										{
+											System.out.println(boardRow +" "+ boardCol);
+											stack = 0;
+
+											piece= myPiece;
+											start = new Coordinate(row, col);
+											end = new Coordinate(boardRow, boardCol);
+											move = new PlayerMove(playerID, stack, piece, start, end);
+											moved =  true;
+											break;
+										}
+									}
+
+								}
+							}
+						}
+					}
+				}
+			}
+
+
+			//for some reason it seems as if my code wont exist the loop when I break it
 
 		}//end of if player 1
 		if(moved)
@@ -430,7 +802,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 			move = new PlayerMove(playerID, stack, piece, start, end);
 		}
 
-		
+
 		return move;
 	}
 	
