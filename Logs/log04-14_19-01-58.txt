@@ -1,0 +1,274 @@
+04-14 19:01:58 Engine Gobblet Java Client v1.1 by RIT CS Department starting up
+04-14 19:01:58 Engine Loading player hash420
+04-14 19:01:58 Engine Loading player EasyPlayer
+04-14 19:01:58 Engine Loaded 2 players
+04-14 19:02:01 Engine Calling init() for player 1
+04-14 19:02:01 Engine Calling init() for player 2
+04-14 19:02:01 Model  GUI accessible at:
+https://yendor.cs.rit.edu/~royale/gobblet/gameview/animations.500/public.89f3075bea9de3294ea0e6cdd8c1d322171deaed534c68f5c9eff/gameid.11042/myplayer.0/
+04-14 19:02:01 Engine Processing move #1
+04-14 19:02:01 Engine Getting move from player 1
+04-14 19:02:01 Engine Validating move: PlayerMove [playerId=1, stack=1, size=4, start=[-1, -1], end=[0, 0]]
+04-14 19:02:01 Engine Move validated. Notifying other players
+04-14 19:02:01 Engine Notifying player 1 of last move
+04-14 19:02:01 Engine Notifying player 2 of last move
+04-14 19:02:01 -+-+-+-+-Easy PlayerMove(1,1,4,-1,-1,0,0)
+04-14 19:02:01 Engine Finished processing player 1's move
+04-14 19:02:01 Engine Processing move #2
+04-14 19:02:01 Engine Getting move from player 2
+04-14 19:02:01 -+-+-+-+-Easy Entering move( )
+04-14 19:02:01 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:01 -+-+-+-+-Easy stash stack 0
+04-14 19:02:01 -+-+-+-+-Easy 0,1 from 0
+04-14 19:02:01 Engine Validating move: PlayerMove [playerId=2, stack=1, size=4, start=[-1, -1], end=[0, 1]]
+04-14 19:02:01 Engine Move validated. Notifying other players
+04-14 19:02:01 Engine Notifying player 1 of last move
+04-14 19:02:01 Engine Notifying player 2 of last move
+04-14 19:02:01 -+-+-+-+-Easy PlayerMove(2,1,4,-1,-1,0,1)
+04-14 19:02:01 Engine Finished processing player 2's move
+04-14 19:02:01 Engine Processing move #3
+04-14 19:02:01 Engine Getting move from player 1
+04-14 19:02:01 Engine Validating move: PlayerMove [playerId=1, stack=1, size=3, start=[-1, -1], end=[0, 2]]
+04-14 19:02:01 Engine Move validated. Notifying other players
+04-14 19:02:01 Engine Notifying player 1 of last move
+04-14 19:02:01 Engine Notifying player 2 of last move
+04-14 19:02:01 -+-+-+-+-Easy PlayerMove(1,1,3,-1,-1,0,2)
+04-14 19:02:01 Engine Finished processing player 1's move
+04-14 19:02:01 Engine Processing move #4
+04-14 19:02:01 Engine Getting move from player 2
+04-14 19:02:01 -+-+-+-+-Easy Entering move( )
+04-14 19:02:01 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:01 -+-+-+-+-Easy stash stack 0
+04-14 19:02:01 -+-+-+-+-Easy 0,3 from 0
+04-14 19:02:01 Engine Validating move: PlayerMove [playerId=2, stack=1, size=3, start=[-1, -1], end=[0, 3]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(2,1,3,-1,-1,0,3)
+04-14 19:02:02 Engine Finished processing player 2's move
+04-14 19:02:02 Engine Processing move #5
+04-14 19:02:02 Engine Getting move from player 1
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=1, stack=1, size=2, start=[-1, -1], end=[1, 0]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(1,1,2,-1,-1,1,0)
+04-14 19:02:02 Engine Finished processing player 1's move
+04-14 19:02:02 Engine Processing move #6
+04-14 19:02:02 Engine Getting move from player 2
+04-14 19:02:02 -+-+-+-+-Easy Entering move( )
+04-14 19:02:02 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:02 -+-+-+-+-Easy stash stack 0
+04-14 19:02:02 -+-+-+-+-Easy 1,1 from 0
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=2, stack=1, size=2, start=[-1, -1], end=[1, 1]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(2,1,2,-1,-1,1,1)
+04-14 19:02:02 Engine Finished processing player 2's move
+04-14 19:02:02 Engine Processing move #7
+04-14 19:02:02 Engine Getting move from player 1
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=1, stack=1, size=1, start=[-1, -1], end=[1, 2]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(1,1,1,-1,-1,1,2)
+04-14 19:02:02 Engine Finished processing player 1's move
+04-14 19:02:02 Engine Processing move #8
+04-14 19:02:02 Engine Getting move from player 2
+04-14 19:02:02 -+-+-+-+-Easy Entering move( )
+04-14 19:02:02 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:02 -+-+-+-+-Easy stash stack 0
+04-14 19:02:02 -+-+-+-+-Easy 1,3 from 0
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=2, stack=1, size=1, start=[-1, -1], end=[1, 3]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(2,1,1,-1,-1,1,3)
+04-14 19:02:02 Engine Finished processing player 2's move
+04-14 19:02:02 Engine Processing move #9
+04-14 19:02:02 Engine Getting move from player 1
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=1, stack=2, size=4, start=[-1, -1], end=[2, 0]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(1,2,4,-1,-1,2,0)
+04-14 19:02:02 Engine Finished processing player 1's move
+04-14 19:02:02 Engine Processing move #10
+04-14 19:02:02 Engine Getting move from player 2
+04-14 19:02:02 -+-+-+-+-Easy Entering move( )
+04-14 19:02:02 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:02 -+-+-+-+-Easy stash stack 0
+04-14 19:02:02 -+-+-+-+-Easy stash stack 1
+04-14 19:02:02 -+-+-+-+-Easy 1,0 from 1
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=2, stack=2, size=4, start=[-1, -1], end=[1, 0]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(2,2,4,-1,-1,1,0)
+04-14 19:02:02 Engine Finished processing player 2's move
+04-14 19:02:02 Engine Processing move #11
+04-14 19:02:02 Engine Getting move from player 1
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=1, stack=2, size=3, start=[-1, -1], end=[2, 1]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(1,2,3,-1,-1,2,1)
+04-14 19:02:02 Engine Finished processing player 1's move
+04-14 19:02:02 Engine Processing move #12
+04-14 19:02:02 Engine Getting move from player 2
+04-14 19:02:02 -+-+-+-+-Easy Entering move( )
+04-14 19:02:02 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:02 -+-+-+-+-Easy stash stack 0
+04-14 19:02:02 -+-+-+-+-Easy stash stack 1
+04-14 19:02:02 -+-+-+-+-Easy 2,2 from 1
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=2, stack=2, size=3, start=[-1, -1], end=[2, 2]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(2,2,3,-1,-1,2,2)
+04-14 19:02:02 Engine Finished processing player 2's move
+04-14 19:02:02 Engine Processing move #13
+04-14 19:02:02 Engine Getting move from player 1
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=1, stack=2, size=2, start=[-1, -1], end=[2, 3]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(1,2,2,-1,-1,2,3)
+04-14 19:02:02 Engine Finished processing player 1's move
+04-14 19:02:02 Engine Processing move #14
+04-14 19:02:02 Engine Getting move from player 2
+04-14 19:02:02 -+-+-+-+-Easy Entering move( )
+04-14 19:02:02 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:02 -+-+-+-+-Easy stash stack 0
+04-14 19:02:02 -+-+-+-+-Easy stash stack 1
+04-14 19:02:02 -+-+-+-+-Easy 3,0 from 1
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=2, stack=2, size=2, start=[-1, -1], end=[3, 0]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(2,2,2,-1,-1,3,0)
+04-14 19:02:02 Engine Finished processing player 2's move
+04-14 19:02:02 Engine Processing move #15
+04-14 19:02:02 Engine Getting move from player 1
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=1, stack=2, size=1, start=[-1, -1], end=[3, 1]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(1,2,1,-1,-1,3,1)
+04-14 19:02:02 Engine Finished processing player 1's move
+04-14 19:02:02 Engine Processing move #16
+04-14 19:02:02 Engine Getting move from player 2
+04-14 19:02:02 -+-+-+-+-Easy Entering move( )
+04-14 19:02:02 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:02 -+-+-+-+-Easy stash stack 0
+04-14 19:02:02 -+-+-+-+-Easy stash stack 1
+04-14 19:02:02 -+-+-+-+-Easy 3,2 from 1
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=2, stack=2, size=1, start=[-1, -1], end=[3, 2]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(2,2,1,-1,-1,3,2)
+04-14 19:02:02 Engine Finished processing player 2's move
+04-14 19:02:02 Engine Processing move #17
+04-14 19:02:02 Engine Getting move from player 1
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=1, stack=3, size=4, start=[-1, -1], end=[3, 3]]
+04-14 19:02:02 Engine Move validated. Notifying other players
+04-14 19:02:02 Engine Notifying player 1 of last move
+04-14 19:02:02 Engine Notifying player 2 of last move
+04-14 19:02:02 -+-+-+-+-Easy PlayerMove(1,3,4,-1,-1,3,3)
+04-14 19:02:02 Engine Finished processing player 1's move
+04-14 19:02:02 Engine Processing move #18
+04-14 19:02:02 Engine Getting move from player 2
+04-14 19:02:02 -+-+-+-+-Easy Entering move( )
+04-14 19:02:02 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:02 -+-+-+-+-Easy stash stack 0
+04-14 19:02:02 -+-+-+-+-Easy stash stack 1
+04-14 19:02:02 -+-+-+-+-Easy stash stack 2
+04-14 19:02:02 -+-+-+-+-Easy 2,1 from 2
+04-14 19:02:02 Engine Validating move: PlayerMove [playerId=2, stack=3, size=4, start=[-1, -1], end=[2, 1]]
+04-14 19:02:03 Engine Move validated. Notifying other players
+04-14 19:02:03 Engine Notifying player 1 of last move
+04-14 19:02:03 Engine Notifying player 2 of last move
+04-14 19:02:03 -+-+-+-+-Easy PlayerMove(2,3,4,-1,-1,2,1)
+04-14 19:02:03 Engine Finished processing player 2's move
+04-14 19:02:03 Engine Processing move #19
+04-14 19:02:03 Engine Getting move from player 1
+04-14 19:02:03 Engine Validating move: PlayerMove [playerId=1, stack=3, size=4, start=[0, 0], end=[3, 0]]
+04-14 19:02:03 Model  Error: Incorrect piece size specified for player stack
+04-14 19:02:03 Engine Invalidating player 1
+04-14 19:02:03 Engine Notifying player 2 that player 1 was invalidated
+04-14 19:02:03 -+-+-+-+-Easy PLAYER 1 IS OUT!
+04-14 19:02:03 Engine Finished processing player 1's move
+04-14 19:02:03 Engine Processing move #20
+04-14 19:02:03 Engine Getting move from player 2
+04-14 19:02:03 -+-+-+-+-Easy Entering move( )
+04-14 19:02:03 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:03 -+-+-+-+-Easy stash stack 0
+04-14 19:02:03 -+-+-+-+-Easy stash stack 1
+04-14 19:02:03 -+-+-+-+-Easy stash stack 2
+04-14 19:02:03 -+-+-+-+-Easy Trying from the board.
+04-14 19:02:03 -+-+-+-+-Easy board stack 0,1
+04-14 19:02:03 -+-+-+-+-Easy 0,2 from 0,1
+04-14 19:02:03 Engine Validating move: PlayerMove [playerId=2, stack=0, size=4, start=[0, 1], end=[0, 2]]
+04-14 19:02:03 Engine Move validated. Notifying other players
+04-14 19:02:03 Engine Notifying player 2 of last move
+04-14 19:02:03 -+-+-+-+-Easy PlayerMove(2,0,4,0,1,0,2)
+04-14 19:02:03 Engine Finished processing player 2's move
+04-14 19:02:03 Engine Processing move #21
+04-14 19:02:03 Engine Getting move from player 2
+04-14 19:02:03 -+-+-+-+-Easy Entering move( )
+04-14 19:02:03 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:03 -+-+-+-+-Easy stash stack 0
+04-14 19:02:03 -+-+-+-+-Easy stash stack 1
+04-14 19:02:03 -+-+-+-+-Easy stash stack 2
+04-14 19:02:03 -+-+-+-+-Easy 0,1 from 2
+04-14 19:02:03 Engine Validating move: PlayerMove [playerId=2, stack=3, size=3, start=[-1, -1], end=[0, 1]]
+04-14 19:02:03 Engine Move validated. Notifying other players
+04-14 19:02:03 Engine Notifying player 2 of last move
+04-14 19:02:03 -+-+-+-+-Easy PlayerMove(2,3,3,-1,-1,0,1)
+04-14 19:02:03 Engine Finished processing player 2's move
+04-14 19:02:03 Engine Processing move #22
+04-14 19:02:03 Engine Getting move from player 2
+04-14 19:02:03 -+-+-+-+-Easy Entering move( )
+04-14 19:02:03 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:03 -+-+-+-+-Easy stash stack 0
+04-14 19:02:03 -+-+-+-+-Easy stash stack 1
+04-14 19:02:03 -+-+-+-+-Easy stash stack 2
+04-14 19:02:03 -+-+-+-+-Easy Trying from the board.
+04-14 19:02:03 -+-+-+-+-Easy board stack 0,1
+04-14 19:02:03 -+-+-+-+-Easy 1,1 from 0,1
+04-14 19:02:03 Engine Validating move: PlayerMove [playerId=2, stack=0, size=3, start=[0, 1], end=[1, 1]]
+04-14 19:02:03 Engine Move validated. Notifying other players
+04-14 19:02:03 Engine Notifying player 2 of last move
+04-14 19:02:03 -+-+-+-+-Easy PlayerMove(2,0,3,0,1,1,1)
+04-14 19:02:03 Engine Finished processing player 2's move
+04-14 19:02:03 Engine Processing move #23
+04-14 19:02:03 Engine Getting move from player 2
+04-14 19:02:03 -+-+-+-+-Easy Entering move( )
+04-14 19:02:03 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:03 -+-+-+-+-Easy stash stack 0
+04-14 19:02:03 -+-+-+-+-Easy stash stack 1
+04-14 19:02:03 -+-+-+-+-Easy stash stack 2
+04-14 19:02:03 -+-+-+-+-Easy 0,1 from 2
+04-14 19:02:03 Engine Validating move: PlayerMove [playerId=2, stack=3, size=2, start=[-1, -1], end=[0, 1]]
+04-14 19:02:03 Engine Move validated. Notifying other players
+04-14 19:02:03 Engine Notifying player 2 of last move
+04-14 19:02:03 -+-+-+-+-Easy PlayerMove(2,3,2,-1,-1,0,1)
+04-14 19:02:03 Engine Finished processing player 2's move
+04-14 19:02:03 Engine Processing move #24
+04-14 19:02:03 Engine Getting move from player 2
+04-14 19:02:03 -+-+-+-+-Easy Entering move( )
+04-14 19:02:03 -+-+-+-+-Easy Trying from a stash.
+04-14 19:02:03 -+-+-+-+-Easy stash stack 0
+04-14 19:02:03 -+-+-+-+-Easy stash stack 1
+04-14 19:02:03 -+-+-+-+-Easy stash stack 2
+04-14 19:02:03 -+-+-+-+-Easy Trying from the board.
+04-14 19:02:03 -+-+-+-+-Easy board stack 0,1
+04-14 19:02:03 -+-+-+-+-Easy 1,2 from 0,1
+04-14 19:02:03 Engine Validating move: PlayerMove [playerId=2, stack=0, size=2, start=[0, 1], end=[1, 2]]
+04-14 19:02:03 Engine Move validated. Notifying other players
+04-14 19:02:03 Engine Notifying player 2 of last move
+04-14 19:02:03 -+-+-+-+-Easy PlayerMove(2,0,2,0,1,1,2)
+04-14 19:02:03 Engine Finished processing player 2's move
+04-14 19:02:03 Engine Game has ended

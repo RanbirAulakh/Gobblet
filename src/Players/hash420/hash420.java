@@ -39,7 +39,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	private PlayerMove lastMove;
 	private final int ROW = 4, COL = 4;
 	private Stack<Piece>[][] board = new Stack[ROW][COL];
-	private Stack<Piece>[] player1 = new Stack[3];
+	private Stack<Piece>[] player1 = new Stack[3];//my partner's structure of how he keep player1's stack 
 	private Stack<Piece>[] player2 = new Stack[3];
 	
 	
@@ -266,80 +266,95 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 		int piece = 0;
 		Coordinate start = new Coordinate(-1,-1);
 		Coordinate end = new Coordinate(-1,-1);
-		int empty=0;
+		
 		boolean moved = false;
-
+		int threat = 0;
+		
+		/*---------------------------
+		 * SIMPLE AI..Nothing fancy
+		 * can still loose easily
+		 * but decided to implement
+		 * this since the hash420 is
+		 * too dumb without it
+		 *-------------------------*/
 		//selecting the correct player's stack
 		if(playerID==1)
 		{
-			for(int i=1; i<(player1.length); i++)
-			{
-				//if the stack is not empty take that stack
-				if( !( player1[i-1].isEmpty() ) )
-				{
-
-					piece= this.getTopSizeOnStack(playerID, i);
-					stack = i;
-					System.out.println("We have got here");
-					break;
-				}
-				
-			 }
-
-			/*----------------------------------
-			 * CURRENT BOARD STATE              |
-			 *                                  |
-			 *---------------------------------*/
-			//can i current use any of my pieces to gobble the opponent's piece?
-			for(int col=0; col<board.length; col++)
-			{
-				for(int row = 0; row<board.length; row++)
-				{
-					int owner = this.getTopOwnerOnBoard(row, col);
-					if(owner==1)
-					{
-						int myPiece = this.getTopSizeOnBoard(row, col);
-						//compare it against everything on the board
-
-						for(int boardCol = 0; boardCol<board.length; boardCol++)
-						{
-							for(int boardRow = 0; boardRow<board.length; boardRow++)
-							{
-								//this piece is the opponent's piece
-								if(this.getTopOwnerOnBoard(boardRow, boardCol)!=1 && this.getTopOwnerOnBoard(boardRow, boardCol)!=-1 )
-								{
-									int opponentPiece = this.getTopSizeOnBoard(boardRow, boardCol);
-									//is my piece greater than the opponet?
-									if(myPiece>opponentPiece)
-									{
-										System.out.println (" My piece: " + myPiece + " Opponent piece: "+ opponentPiece);
-										System.out.println("MADE IT HERE!");
-										System.out.println(boardRow +" "+ boardCol);
-										stack=0;
-										piece= myPiece;
-										start = new Coordinate(row, col);
-										end = new Coordinate(boardRow, boardCol);
-										moved =  true;
-										break;
-									}
-								}
-								if(moved)
-									break;
-							}
-							if(moved)
-								break;
-						
-						}
-						if(moved)
-							break;
-					}
-				}
-			}
-
 			//adding the piece to the board from the stack
 			if(moved==false)
 			{
-				for(int col = 0; col<board.length; col++)
+				for(int i=1; i<(player1.length +1); i++)
+				{
+					//if the stack is not empty take that stack
+					if( !( player1[i-1].isEmpty() ) )
+					{
+
+						piece= this.getTopSizeOnStack(playerID, i);
+						stack = i;
+						break;
+					}
+					else
+					{
+						if(i==player1.length+1)
+						{
+							stack = 0;
+						}
+					}
+
+				}
+				
+				/*---------------------------
+				* SIMPLE AI..Nothing fancy
+				 * can still loose easily
+				* but decided to implement
+				* this since the hash420 is
+				* too dumb without it
+				*-------------------------*/
+				Coordinate temp = new Coordinate(-1,-1);
+				//is there any rows in the horizional threatning?
+				for(int col = 0; col<board.length && !moved; col++)
+				{
+					int empty=0;
+					
+					for(int row = 0; row<board.length; row++)
+					{
+						if(this.getTopOwnerOnBoard(col, row)!=1 && this.getTopOwnerOnBoard(col, row)!=-1)
+						{
+							threat++;
+						}
+						
+						//I am on this row as well. No worries :-)
+						else if(this.getTopOwnerOnBoard(col, row)==1)
+						{
+							break;//come out of the loop and check the next horizional row
+						}
+						
+						else
+						{
+							
+							empty++;
+							temp = new Coordinate(col, row);
+							
+							System.out.println (" We arrived at this empty location : " + temp);
+						}
+						
+						//get the location of the next empty space to defend myself
+						if(threat==3 && empty==1)
+						{
+							System.out.println("We arrive here you moron come on");
+							System.out.println("Threat : " + threat + " Empty: " +empty + " Coordinate : " + temp );
+							end = temp;
+							moved = true;
+						}
+					}
+
+				}
+				
+				//is there any threating in the rows vertical? 
+				
+				//END OF SIMPLE AI
+				//how about a boolean condition 
+				for(int col = 0; col<board.length && !moved;  col++)
 				{
 					for(int row=0; row<board.length; row++)
 					{
@@ -349,10 +364,65 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 							start = new Coordinate(-1,-1);
 							end =  new Coordinate(col, row);
 							moved= true;
+							break;
 						}
 					}
 				}
 			}
+
+			
+//come up with moves that will make the board full
+
+			/*----------------------------------
+			 * CURRENT BOARD STATE              |
+			 *                                  |
+			 *---------------------------------*/
+			//can i current use any of my pieces on the board  to gobble the opponent's piece?
+			//so i would have a boolean to stop the other loops? 
+			if(moved==false)
+			{
+				for(int col=0; col<board.length && !moved; col++)
+				{
+					for(int row = 0; row<board.length &&!moved; row++)
+					{
+						int owner = this.getTopOwnerOnBoard(row, col);
+						if(owner==1)
+						{
+							int myPiece = this.getTopSizeOnBoard(row, col);
+							//compare it against everything on the board
+
+							for(int boardCol = 0; boardCol<board.length && !moved; boardCol++)
+							{
+								for(int boardRow = 0; boardRow<board.length; boardRow++)
+								{
+									//this piece is the opponent's piece
+									if(this.getTopOwnerOnBoard(boardRow, boardCol)!=1 && this.getTopOwnerOnBoard(boardRow, boardCol)!=-1 )
+									{
+										int opponentPiece = this.getTopSizeOnBoard(boardRow, boardCol);
+										//is my piece greater than the opponet?
+										if(myPiece>opponentPiece)
+										{
+											System.out.println(boardRow +" "+ boardCol);
+											stack = 0;
+
+											piece= myPiece;
+											start = new Coordinate(row, col);
+											end = new Coordinate(boardRow, boardCol);
+											move = new PlayerMove(playerID, stack, piece, start, end);
+											moved =  true;
+											break;
+										}
+									}
+
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			
+//for some reason it seems as if my code wont exist the loop when I break it
 
 		}//end of if player 1
 		if(moved)
@@ -360,6 +430,7 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 			move = new PlayerMove(playerID, stack, piece, start, end);
 		}
 
+		
 		return move;
 	}
 	
@@ -372,8 +443,8 @@ public class hash420 implements PlayerModule, GobbletPart1 {
 	 */
 	@Override
 	public void playerInvalidated(int arg0) {
-		this.log.writeMsg("Invalid move", "PLAYER" + arg0+ " HAS BEEN KICKED OUT");
+		System.out.println("Invalid move PLAYER " + arg0+ " HAS BEEN KICKED OUT");
+		
 	}
-
 
 }
