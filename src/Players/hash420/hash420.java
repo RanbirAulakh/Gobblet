@@ -1,47 +1,40 @@
-/**
- * $Id: KSC2650.java,v 1.3 2014/05/07 19:20:41 ksc2650 Exp $
- * $Log: KSC2650.java,v $
- * Revision 1.3  2014/05/07 19:20:41  ksc2650
- * *** empty log message ***
- *
- * Revision 1.2  2014/05/07 18:32:40  ksc2650
- * correct the error in the memory location
- *
- * Revision 1.1  2014/05/07 16:22:03  ksc2650
- * installed memory tracker
- *
- * Revision 1.4  2014/03/11 22:13:27  ksc2650
- * formating correct! DONE WITH THIS!! YEAH!!!
- *
- * Revision 1.3  2014/03/11 21:41:23  ksc2650
- * everything works! just need to fix the formating display
- *
- * Revision 1.2  2014/03/09 06:14:01  ksc2650
- * init function completed. Stack for the init need to be completed
- *
- * Revision 1.1  2014/03/09 02:59:22  ksc2650
- * Setting up...Let us go!
- */
 package Players.hash420;
+
+/*
+* hash420.java
+*
+* Version:
+* $Id$
+*
+* Revisions:
+* $Log$
+*/
+
 import java.util.Random;
 import java.util.Stack;
 import java.util.ArrayList;
-
 import Engine.Logger;
 import Interface.Coordinate;
 import Interface.GobbletPart1;
 import Interface.PlayerModule;
 import Interface.PlayerMove;
+
 /**
- * @author Kemoy
- * 
+ * Gobblet 4x4 Board
+ * @author Ranbir Aulakh
+ * @author Kemoy Campbell
  *
  */
 
-//sometime 
 public class hash420 implements PlayerModule, GobbletPart1 
 {
-	private int playerId;
+	//global variables that is used heavily inside of the move function especially in defending and offensive
+	private final int emptyPos = -1;
+	private Coordinate temp, end, start;
+	private boolean moved, picked, runSmartMove;
+	private PlayerMove move;
+	private int stack = 0, piece, movesMade = 0, playerId;
+	private Random rand = new Random();
 	private Logger logger;
 
 	//USE CONSTANTS FOR THE BOARD IMPLEMENT
@@ -49,7 +42,6 @@ public class hash420 implements PlayerModule, GobbletPart1
 
 	//BOARD STACK
 	private Stack<Piece> board[][] = new Stack[ROW][COL];//can I see if i can help
-
 
 	//PLAYER STACKS
 	private Stack<Integer>[] player1Stack = new Stack[3];
@@ -63,269 +55,142 @@ public class hash420 implements PlayerModule, GobbletPart1
 	private ArrayList<Gobblet> moveArray;
 
 	//win arrayList
-	private ArrayList<Gobblet>winArray;
+	private ArrayList<Gobblet> winArray;
 
-
-	//global variables that is used heavily inside of the move function especially in defending and offensive
-	private final int emptyPos = -1;
-	private Coordinate temp;
-	private Coordinate end;
-	private boolean moved;
-	private boolean picked;
-	private Coordinate start;
-	private PlayerMove move;
-	private int stack=0;
-	private int piece;
-	private int movesMade = 0;
-	private Random rand = new Random();
-	private boolean runSmartMove;
 
 	/**
-	 * Display, on standard output, a representation of how the physical
-	 * game would appear at this point in time.
+	 * Display, on standard output, a representation of how the physical game 
+	 * would appear at this point in time. The format is as follows. On the 
+	 * left-hand side is the board, row 0 at the top, column 0 on the left. 
+	 * On the right-hand side is two rows of information about the players' 
+	 * stacks. Player 1's stacks are next to the first row of the board and 
+	 * player 2's are next to the third row. For both players, their #1 stacks 
+	 * are to the left. Gobblets' sizes are numbered 1-4, owner numbers are 
+	 * indicated in parentheses, and empty positions are indicated with brackets. 
+	 * Here is an example. Player 1 has placed its first size-4 gobblet in (0,0). 
+	 * Player 2 responded in kind but to position (1,1). Finally, Player 1 puts 
+	 * the next gobblet from the same stack at position (2,2). This is what should
+	 *  appear on standard output (System.out):
 	 */
 	public void dumpGameState() 
 	{
-		//for the individual rows
-		String row1="";
-		String row2="";
-		String row3 ="";
-		String row4="";
+		String[] printOut = new String[4];
 
-		//for stacks
-		String stackPlayer1="";
-		String stackPlayer2="";
-
-		//combination of all string to create the final display
-		String display;
-
-
-		/*------------------------------------------------*
-		 *                                                *
-		 *                                                *
-		 *      BOARD DISPLAY SETUP                       *
-		 *                                                *
-		 *                                                *
-		 *------------------------------------------------*/
-
-		//the first row display
-		for(int col=0; col<4; col++)
+		int chumpVariable;
+		for(int i = 0; i < 4; i++)
 		{
-			int owner = getTopOwnerOnBoard(0,col);
-			int pieceVal = getTopSizeOnBoard(0,col);
-			if(owner==-1)
+			printOut[i] = "";//don't want to print 'null'
+			for(int x=0; x<4; x++)
 			{
-				row1+=String.format("%-4s","")+"[]";
-			}
-			else
-			{
-				row1+=String.format("%-2s","")+pieceVal +"("+owner+")";
-			}
+				chumpVariable = getTopOwnerOnBoard(i,x);//if this equals one there is a player
+				printOut[i] += (chumpVariable==-1) ?
+						"    []"
+						: "  " +getTopSizeOnBoard(i,x) + "(" + chumpVariable + ")";
 
-
-		}
-
-		//the second row display
-		for(int col=0; col<4; col++)
-		{
-			int owner = getTopOwnerOnBoard(1,col);
-			int pieceVal = getTopSizeOnBoard(1,col);
-			if(owner==-1)
-			{
-				row2+=String.format("%-4s","")+"[]";
-			}
-			else
-			{
-				row2+=String.format("%-2s","")+pieceVal +"("+owner+")";
-			}
-
-		}
-
-		//the third  row display
-		for(int col=0; col<4; col++)
-		{
-			int owner = getTopOwnerOnBoard(2,col);
-			int pieceVal = getTopSizeOnBoard(2,col);
-			if(owner==-1)
-			{
-				row3+=String.format("%-4s","")+ "[]";
-			}
-			else
-			{
-				row3+=String.format("%-2s","")+pieceVal +"("+owner+")";
-			}
-
-		}
-
-		//the fourth row display
-		for(int col=0; col<4; col++)
-		{
-			int owner = getTopOwnerOnBoard(3,col);
-			int pieceVal = getTopSizeOnBoard(3,col);
-			if(owner==-1)
-			{
-				row4+=String.format("%-4s","") + "[]";
-			}
-			else
-			{
-				row4+=String.format("%-2s","") +pieceVal +"("+owner+")" + "  ";
-			}
-
-		}
-
-		/*------------------------------------------------*
-		 *                                                *
-		 *                                                *
-		 *      STACK DISPLAY SETUP                       *
-		 *                                                *
-		 *                                                *
-		 *------------------------------------------------*/
-
-		//player1 stack
-		for(int stack=1; stack<4; stack++)
-		{
-			int stackNo1;
-
-			stackNo1 = getTopSizeOnStack(1, stack);
-			//System.out.println("StackNO1: "+stackNo1);
-			if(stackNo1==-1)
-			{
-				stackPlayer1+=String.format("%-2s","")+"_";
-			}
-
-			else
-			{
-				stackPlayer1+=String.format("%-2s","")+stackNo1;
 			}
 		}
 
-		//player2 stack
-		for(int stack=1; stack<4; stack++)
+		for(int i = 0; i < 4; i+=2)//only first and 3rd
 		{
-			int stackNo2;
-			stackNo2 = getTopSizeOnStack(2, stack);
-			if(stackNo2==-1)
+			for(int x = 1; x < 4; x++)
 			{
-				stackPlayer2+=String.format("%-2s","")+"_";
-			}
-
-			else
-			{
-				stackPlayer2+=String.format("%-4s","")+stackNo2;
+				chumpVariable = (i==0) ? getTopSizeOnStack(1, x) : 
+					getTopSizeOnStack(2, x);
+				printOut[i] += (chumpVariable == -1) ? 
+						"  _" :
+							"  " + chumpVariable;
 			}
 		}
 
-		//combining all strings
-		display=row1+""+stackPlayer1+"\n"+row2+"\n"+row3+""+stackPlayer2+"\n"+row4;
-
-		System.out.println(display);
+		//print
+		for(int i = 0; i < printOut.length; i++)
+			System.out.println(printOut[i]);
 	}
 
-
+	/**
+	 * Which player is this?
+	 * @returns the numeric id of this module's player
+	 */
 	public int getID() {
-
 		return playerId;
 	}
 
 	/**
 	 * Describe what is visible on the board at a given location.
-	 *
-	 * @param row - the row of interest on the board (0-based)
+	 * @param ROW - the row of interest on the board (0-based)
 	 * @param col - the column of interest on the board (0-based)
-	 * @return the ID of the player (1-2) that owns the piece on
+	 * @return the ID of the player (1-2) that owns the piece on 
 	 * top of the stack of pieces at the given location on the board.
 	 * If the stack is empty, return -1.
 	 */
 	public int getTopOwnerOnBoard(int row, int col) {
-		if(board[row][col].isEmpty())
-		{
+		if(board[row][col].isEmpty()){
 			return -1;
-
 		}
-		else
-		{
-			return board[row][col].peek().getPlayerId();
-		}
+		return board[row][col].peek().getPlayerId();
 	}
 
 	/**
 	 * Describe what is visible on the board at a given location.
+	 * @param ROW - the row of interest on the board (0-based)
+	 * @param col - the column of interest on the board (0-based)
+	 * @return the size of the piece on top of the stack of pieces at 
+	 * the given location on the board. If the stack is empty, -1.
 	 */
 	public int getTopSizeOnBoard(int row, int col) {
-		if(board[row][col].isEmpty())
-		{
+		if(board[row][col].isEmpty()){
 			return -1;
-
 		}
-		else
-		{
-			return board[row][col].peek().getPieceValue();
-		}
+		return board[row][col].peek().getPieceValue();
 	}
+	
 	/**
-	 * Describe what remains on top of one of the stacks of unplayed pieces of a certain player.
-	 *
+	 * Describe what remains on top of one of the stacks of 
+	 * unplayed pieces of a certain player.
 	 * @param playerID - the player ID (1-2)
-	 * @param stackNum - the number of one of the player's unplayed pieces stacks (1-based)
-	 * @return the size of the piece on top of the identified stack of unplayed pieces.
-	 * If the identified stack is empty, -1.
+	 * @param stackNum - the number of one of the player's unplayed 
+	 * pieces stacks (1-based)
+	 * @return the size of the piece on top of the identified stack of 
+	 * unplayed pieces. If the identified stack is empty, -1.
 	 */
 	public int getTopSizeOnStack(int playerID, int stackNum) 
 	{
-		int size=0;
-		int stack = stackNum-1;
-		//System.out.println("stack is: " +stackNum);
-		if(playerID==1)
-		{
-
-
-			if(player1Stack[stack].isEmpty())
-			{
+		int size = 0;
+		int stack = stackNum - 1;
+		
+		if(playerID == 1){
+			if(player1Stack[stack].isEmpty()){
 				return -1;
 			}
-			else
-			{
+			else{
 				size= (int)player1Stack[stack].peek();
 			}
-
 		}
 
-		if(playerID==2)
-		{
-			if(player2Stack[stack].isEmpty())
-			{
+		if(playerID == 2){
+			if(player2Stack[stack].isEmpty()){
 				return -1;
 			}
-			else
-			{
+			else{
 				size= (int)player2Stack[stack].peek();
 			}
-
 		}
 		return size;
 	}
 
-
 	/**
-	 *This functions takes two parameters args0 and args1 which represent 
-	 *logger and players'ID respectively. This is use to set up the initialization of
-	 *the gobblet game
-	 *
-	 *@param Logger logger takes the log 
-	 *
-	 *@param takes the player's ID
+	 * Initializes the player module.
+	 * param logger - reference to the logger class
+	 * @param playerId - the id of this player (1 or 2) This method must be implemented for all parts of the project.
 	 */
-
 	public void init(Logger logger, int playerId) 
 	{
 		this.logger = logger;
 		this.playerId = playerId;
 
 		//initalize the board and create an empty stack at each location
-		for(int row=0; row<ROW; row++)
-		{
-			for(int col=0; col<COL; col++ )
-			{
+		for(int row = 0; row < ROW; row++){
+			for(int col = 0; col < COL; col++ ){
 				board[row][col] = new Stack<Piece>();
 				//board[row][col].push(new Piece(playerId,0));
 			}
@@ -333,28 +198,24 @@ public class hash420 implements PlayerModule, GobbletPart1
 
 		//SET UP THE PLAYERS WITH THEIR REPRESENTATION PIECES
 		//Each players have three pieces of stack
-		for(int i=0;i<3;i++)
-		{
+		for(int i = 0; i < 3; i++){
 			player1Stack[i] = new Stack<Integer>();
 			player2Stack[i] = new Stack<Integer>();
-
 		}
 
-		for(int i=0;i<3;i++)
-		{
-			for(int j=1;j<=4;j++)
-			{
-
+		for(int i = 0; i < 3; i++){
+			for(int j = 1; j <= 4; j++){
 				player1Stack[i].push(j);
 				player2Stack[i].push(j);
 			}
-
 		}
 	}
 
 	/**
-	 * Notified the player of th last move made by the move function
-	 * @param move the move object
+	 * Notifies the player of a valid move that was just made. This is 
+	 * called when any player (including this one) has made a move 
+	 * in the game. The move has already been validated.
+	 * @param move - the move This method must be implemented for all parts of the project.
 	 */
 	public void lastMove(PlayerMove move) {
 		int offBoardCol = -1;//default position for offboard col
@@ -373,54 +234,41 @@ public class hash420 implements PlayerModule, GobbletPart1
 		Piece popPieceFromBoard;
 
 		//if player id is 1
-		if(id==1)
-		{	
+		if(id==1){	
 			//the piece need to move is off the board
-			if(startRow==offBoardRow && startCol==offBoardCol)
-			{
-				//System.out.println("The stack here is: "+stack);
+			if(startRow == offBoardRow && startCol == offBoardCol){
 				stackPos = player1Stack[stack-1].pop();
 				board[endRow][endCol].push(new Piece(id,stackPos));
 			}
-			else
-			{
+			else{
 				//the piece is already on the board
 				popPieceFromBoard = board[startRow][startCol].pop();
-				//System.out.println("PIECE POPPED :"+popPieceFromBoard.getPieceValue());
-				//System.out.println(stack - 1);
 				board[endRow][endCol].push(new Piece(popPieceFromBoard.getPlayerId(),popPieceFromBoard.getPieceValue()));
 			}
-
-
 		}
-
-
 		//if player id is 2
-		if(id==2)
-		{	
+		if(id==2){	
 			//the piece need to move is off the board
-			if(startRow==offBoardRow && startCol==offBoardCol)
-			{
-
+			if(startRow==offBoardRow && startCol==offBoardCol){
 				stackPos = (int)player2Stack[stack-1].pop();
 				board[endRow][endCol].push(new Piece(id,stackPos));
 			}
-			else
-			{
+			else{
 				//the piece is already on the board
 				popPieceFromBoard = board[startRow][startCol].pop();
 				board[endRow][endCol].push(new Piece(popPieceFromBoard.getPlayerId(),popPieceFromBoard.getPieceValue()));
 			}
-
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see Interface.PlayerModule#move()
-	 */
-	@Override
 	/**
-	 * Construct a move object
+	 * Called when it's this player's turn to make a move. The player module 
+	 * should choose a move, construct a valid PlayerMove object that represents
+	 * it, and return it. This player module's "state" should not be updated here.
+	 * This module's lastMove() function will get called after the engine verifies 
+	 * the move. This way the update of state always occurs in the same place.
+	 * @param an object representing this player module's move This method can be 
+	 * stubbed out for part 1. (Suggestion: "throw new UnsupportedOperationException()")
 	 */
 	public PlayerMove move() 
 	{
@@ -435,7 +283,6 @@ public class hash420 implements PlayerModule, GobbletPart1
 		temp = new Coordinate(-1,-1);
 		end = new Coordinate(-1,-1);
 		moveArray = new ArrayList<Gobblet>();
-		boolean boardEmpty;
 		generalStack = stackSelection(playerId);
 		runSmartMove = false;
 		int myEnemy = Opponent();
@@ -467,22 +314,12 @@ public class hash420 implements PlayerModule, GobbletPart1
 		defendingDiagonal(playerId, temp,opponentCoord, myCoord,myEnemy);
 
 		//creating the possible moves
-		//System.out.println("Size of SmartMoves before execution " + moveArray.size());
-		smartMoves(opponentCoord);
-		/*System.out.println("Size of SmartMoves " + moveArray.size());
-		if(moveArray.size()>=1)
-		{
-			for(int i = 0; i<moveArray.size(); i++)
-			{
-				System.out.println("Coordinate: "+moveArray.get(i).getRow() + ","+moveArray.get(i).getCol());
-			}
-		}*/
-
+		smartMoves(opponentCoord);//go to the function
 		//randomly selecting one of the possible moves and execute if need
 		executeSmartMove();
-		if(!moved && movesMade<2)
+		if(!moved && movesMade<=2)
 		{
-			System.out.println("got here?");
+			//System.out.println("got here?");
 			int randomCol = (int)(Math.random() *(board.length-1));
 			int randomRow = (int)(Math.random() *(board.length-1));
 			int randomStack =(int)(Math.random() *(generalStack.length-1)+1);
@@ -493,8 +330,8 @@ public class hash420 implements PlayerModule, GobbletPart1
 			{
 				randomCol = (int)(Math.random() *(board.length-1));
 				//System.out.println("final random for col" + randomCol);
-				//randomRow = (int)(Math.random() *(board.length-1));
-				System.out.println("final random for row" + randomRow);
+				randomRow = (int)(Math.random() *(board.length-1));
+				//System.out.println("final random for row" + randomRow);
 			}
 			while(this.getTopSizeOnStack(playerId, randomStack)==emptyPos)
 			{
@@ -507,7 +344,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 			end = new Coordinate(randomRow, randomCol);
 			piece = this.getTopSizeOnStack(playerId, randomStack);
 			stack = randomStack;
-			System.out.println("Executed???");
+			//System.out.println("Executed???");
 			moved = true;
 
 
@@ -560,7 +397,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 				}
 				if(mine == 2 && empty1 == 2)
 				{
-					System.out.println("empty coordinate: " + emptyCoord.getRow()+","+emptyCoord.getCol());
+					//System.out.println("empty coordinate: " + emptyCoord.getRow()+","+emptyCoord.getCol());
 					moveArray.add(new Gobblet(playerId, emptyCoord.getRow(), emptyCoord.getCol()));	
 				}
 				else if(mine==2 && threat==1 && empty1==1)
@@ -604,7 +441,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 				{
 					if(this.getTopSizeOnBoard(opponentCoord.getCol(), opponentCoord.getRow())!=4)
 					{
-						System.out.println("Empty coordinate for vertical: " + emptyCoord.getCol() +" "+emptyCoord.getRow() );
+						//System.out.println("Empty coordinate for vertical: " + emptyCoord.getCol() +" "+emptyCoord.getRow() );
 						moveArray.add(new Gobblet(playerId, emptyCoord.getCol(), emptyCoord.getRow()));
 					}
 
@@ -698,7 +535,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 		if(moveArray.size()>=1)
 		{
 			runSmartMove = true;
-			System.out.println("Executing...");
+			//System.out.println("Executing...");
 		}
 
 	}
@@ -773,7 +610,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 					end = new Coordinate(moveArray.get(moveRandom).getRow(),moveArray.get(moveRandom).getCol());
 				}
 				start = new Coordinate(-1,-1);
-				System.out.println("SmartMove coordinate : "+ end.getRow() +"," +end.getCol());
+				//System.out.println("SmartMove coordinate : "+ end.getRow() +"," +end.getCol());
 				moved = true;
 			}
 		}
@@ -812,12 +649,12 @@ public class hash420 implements PlayerModule, GobbletPart1
 					int highest = highestPiece(id);
 					generalStack = stackSelection(id);
 					pickAndDefendFromBoard();
-					System.out.println("Temp before modified: "+temp.getRow()+","+temp.getCol());
+					//System.out.println("Temp before modified: "+temp.getRow()+","+temp.getCol());
 					if(picked == true)
 					{
 						end = temp;
 						moved = true;
-						System.out.println("Picked is " + picked);
+						//System.out.println("Picked is " + picked);
 						break;
 					}
 
@@ -828,11 +665,12 @@ public class hash420 implements PlayerModule, GobbletPart1
 						{
 							if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
 							{
-								System.out.println("Look here Ranbir");
+								//System.out.println("Look here Ranbir");
 								stack = i;
 								start = new Coordinate(-1,-1);
 								piece = this.getTopSizeOnStack(id, stack);
 								end = temp;
+								playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
 								moved = true;
 								break;
 
@@ -842,6 +680,14 @@ public class hash420 implements PlayerModule, GobbletPart1
 
 
 				}//if threat is 3
+				
+				if(threat==3 && mine==1)
+				{
+					if(this.getTopSizeOnBoard(myCoord.getRow(), myCoord.getCol())!=4)
+					{
+						gobbleSelfPreventWin(myCoord);
+					}
+				}
 			}//col
 		}//row
 	}//end of horizontal threating
@@ -885,12 +731,12 @@ public class hash420 implements PlayerModule, GobbletPart1
 					int highest = highestPiece(id);
 					generalStack = stackSelection(id);
 					pickAndDefendFromBoard();
-					System.out.println("Temp before modified: "+temp.getRow()+","+temp.getCol());
+					//System.out.println("Temp before modified: "+temp.getRow()+","+temp.getCol());
 					if(picked == true)
 					{
 						end = temp;
 						moved = true;
-						System.out.println("Picked is " + picked);
+						//System.out.println("Picked is " + picked);
 						break;
 					}
 					else
@@ -900,17 +746,25 @@ public class hash420 implements PlayerModule, GobbletPart1
 						{
 							if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
 							{
-								System.out.println("Look here Ranbir");
+								//System.out.println("Look here Ranbir");
 								stack = i;
 								start = new Coordinate(-1,-1);
 								piece = this.getTopSizeOnStack(id, stack);
 								end = temp;
+								playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
 								moved = true;
 								break;
 
 							}      
 						}//end of picking highest stack
 					}//end else
+				}
+				if(threat==3 && mine==1)
+				{
+					if(this.getTopSizeOnBoard(myCoord.getRow(), myCoord.getCol())!=4)
+					{
+						gobbleSelfPreventWin(myCoord);
+					}
 				}
 			}
 		}      
@@ -940,6 +794,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 				else if(this.getTopOwnerOnBoard(row, col)==playerId)
 				{
 					mine++;
+					myCoord = new Coordinate(row,col);
 				}
 
 				else
@@ -976,6 +831,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 								start = new Coordinate(-1,-1);
 								piece = this.getTopSizeOnStack(id, stack);
 								end = temp;
+								playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
 								moved = true;
 								break;
 
@@ -983,12 +839,18 @@ public class hash420 implements PlayerModule, GobbletPart1
 						}//end of picking highest stack
 					}//end else
 				}
+				if(threat==3 && mine==1)
+				{
+					if(this.getTopSizeOnBoard(myCoord.getRow(), myCoord.getCol())!=4)
+					{
+						gobbleSelfPreventWin(myCoord);
+					}
+				}
 				row++; col--;
 			}
-		}//think I am gonna see if my prof free after my math class to fix this error.. costing me big time.. cant happen on the competition
+		}
 
-		//is there any threat in the diagonal 2?//pi i am kidding... I am talking about u moding my code.. I am the author of ll moves in that code
-		//when you randomize check if the stack exist because random will just give u any number between the one you want so suppose u randomize from 1 to 3 but stack 1 is now empty and u get random = 1 randomize it again because stack1 is empty so basically you say while(player1[random].isEmpty) random again
+		//Diagonal 2
 		if(!moved)
 		{
 			int col = 0, row = 0;
@@ -1004,6 +866,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 				else if(this.getTopOwnerOnBoard(row,col)==playerId)
 				{
 					mine++;
+					myCoord = new Coordinate(row,col);
 				}
 
 				else
@@ -1020,12 +883,12 @@ public class hash420 implements PlayerModule, GobbletPart1
 					int highest = highestPiece(id);
 					generalStack = stackSelection(id);
 					pickAndDefendFromBoard();
-					System.out.println("Temp before modified: "+temp.getRow()+","+temp.getCol());
+					//System.out.println("Temp before modified: "+temp.getRow()+","+temp.getCol());
 					if(picked == true)
 					{
 						end = temp;
 						moved = true;
-						System.out.println("Picked is " + picked);
+						//System.out.println("Picked is " + picked);
 						break;
 					}
 
@@ -1036,17 +899,24 @@ public class hash420 implements PlayerModule, GobbletPart1
 						{
 							if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
 							{
-								System.out.println("Look here Ranbir");
 								stack = i;
 								start = new Coordinate(-1,-1);
 								piece = this.getTopSizeOnStack(id, stack);
 								end = temp;
+								playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
 								moved = true;
 								break;
 
 							}      
 						}//end of picking highest stack
 					}//end else
+				}
+				if(threat==3 && mine==1)
+				{
+					if(this.getTopSizeOnBoard(myCoord.getRow(), myCoord.getCol())!=4)
+					{
+						gobbleSelfPreventWin(myCoord);
+					}
 				}
 				col++; row++;
 			}
@@ -1069,7 +939,8 @@ public class hash420 implements PlayerModule, GobbletPart1
 					//check to ensure that this piece is not defending anything
 					if(!playerThreat.contains(new Gobblet(playerId,row,col)))
 					{
-						System.out.println("Reached????");
+						//System.out.println("Reached????");
+						playerThreat.add(new Gobblet(playerId,row,col));
 						piece = this.getTopSizeOnBoard(row, col);
 						start = new Coordinate(row,col);
 						stack = 0;
@@ -1083,6 +954,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 
 	/**
 	 * This function pick a piece from the board and use it in winning :-P
+	 * FUNCTION PASSED
 	 */
 	public void pickAndWinFromBoard(int opponentPiece, Coordinate opponentCoord)
 	{
@@ -1100,6 +972,38 @@ public class hash420 implements PlayerModule, GobbletPart1
 						piece = this.getTopSizeOnBoard(i, j);
 						start = new Coordinate(i,j);
 						end = new Coordinate(opponentCoord.getRow(),opponentCoord.getCol());
+						moved = true;
+						quit = true;
+						break;
+
+					}
+				}
+
+			}
+		}
+	}
+	
+	/**
+	 * This picks a piece from the board(4) and gobble my smaller piece to prevent the opponent from winning
+	 * 
+	 */
+	public void gobbleSelfPreventWin(Coordinate myCoord)
+	{
+		boolean quit = false;
+		for(int i=0; i<board.length &&!quit; i++)
+		{
+			for(int j = 0; j<board.length; j++)
+			{
+				//this is me and my piece is greater than the opponent's
+				if(this.getTopOwnerOnBoard(i, j)==playerId)
+				{
+					if(this.getTopSizeOnBoard(i, j)==4 && !playerThreat.contains(new Gobblet(playerId,i,j)))
+					{
+						stack = 0; 
+						piece = this.getTopSizeOnBoard(i, j);
+						start = new Coordinate(i,j);
+						end = new Coordinate(myCoord.getRow(),myCoord.getCol());
+						playerThreat.add(new Gobblet(playerId,end.getRow(),end.getCol()));
 						moved = true;
 						quit = true;
 						break;
@@ -1177,7 +1081,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 				//i can win
 				if( mine == 3 && empty==1)
 				{
-					System.out.println("We have got to horizontal win");
+					//System.out.println("We have got to horizontal win");
 					end = temp;
 					moved = true;
 					break;
@@ -1227,7 +1131,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 				//defend the empty location if it is threatning
 				if(mine==3 && empty==1)
 				{
-					System.out.println("Got to winning row");
+					//System.out.println("Got to winning row");
 					end = temp;
 					moved = true;
 					break;
