@@ -22,7 +22,7 @@
  * Revision 1.1  2014/03/09 02:59:22  ksc2650
  * Setting up...Let us go!
  */
-package Players.KSC2650;
+package Players.hash420;
 import java.util.Random;
 import java.util.Stack;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ import Interface.PlayerMove;
  */
 
 //sometime 
-public class KSC2650 implements PlayerModule, GobbletPart1 
+public class hash420 implements PlayerModule, GobbletPart1 
 {
 	private int playerId;
 	private Logger logger;

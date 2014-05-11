@@ -10,21 +10,10 @@ API_KEY 3262200420b97ea7859
 # List of player modules separated by commas.  
 # The number of modules listed here specifies the number of players in the game 
 # To play via the GUI, use Human.  
-PLAYER_MODULES KSC2650
-
-#Playing as Player 1
-#37- Me
-#3 - Opp
-
-#Playing as Player 2
-#10 04 07
-#30 36 33
-
+PLAYER_MODULES hash420, EasyPlayer
 
 # Enables multi-client play
-REMOTE True
-
-
+REMOTE False
 
 # Does the graphical UI display?
 UI True

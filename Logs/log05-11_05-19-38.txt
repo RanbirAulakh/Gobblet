@@ -1,0 +1,7 @@
+05-11 05:19:38 Engine Gobblet Java Client v1.3c by RIT CS Department starting up
+05-11 05:19:38 Engine Loading player KSC2650
+05-11 05:19:38 Engine Error: java.lang.ClassNotFoundException: Players.KSC2650.KSC2650
+05-11 05:19:38 Engine Error: Failed to load player KSC2650
+05-11 05:19:38 Engine Loading player EasyPlayer
+05-11 05:19:38 Engine Loaded 1 player
+05-11 05:19:39 Engine Awaiting challenge from other players...
