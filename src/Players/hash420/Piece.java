@@ -1,12 +1,22 @@
 package Players.hash420;
+/*
+ * Piece.java
+ *
+ * Version:
+ * $Id:
+ *
+ * Revisions:
+ * $Log:
+ *
+*/
+
 
 /**
- * 
- * @author Kemoy
- * 
- *
+ * This is a class that handles pieces
+ * @author Kemoy Campbell
+ * @author Ranbir Aulakh
  */
-//This is a class that handle pieces
+
 public class Piece 
 {
 	private int playerId;
@@ -22,12 +32,10 @@ public class Piece
 	 * @param size - stack Size (1, 2, 3, or 4)
 	 * @param ownerID - Owner ID (1 - 2)
 	 */
-	public Piece(int playerId, int pieceValue)
-	{
+	public Piece(int playerId, int pieceValue){
 		this.playerId = playerId;
 		this.pieceValue = pieceValue;
 	}
-	
 	
 	/*----------------------------------------------
 	 *                                             *
@@ -38,8 +46,7 @@ public class Piece
 	 * return the player's id
 	 * @return playerId
 	 */
-	public int getPlayerId()
-	{
+	public int getPlayerId(){
 		return playerId;
 	}
 	
@@ -47,8 +54,7 @@ public class Piece
 	 * return the pieceVlaue(size)
 	 * @return pieceValue
 	 */
-	public int getPieceValue()
-	{
+	public int getPieceValue(){
 		return pieceValue;
 	}
 

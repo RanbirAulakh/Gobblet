@@ -1,0 +1,103 @@
+05-11 19:58:39 Engine Gobblet Java Client v1.3c by RIT CS Department starting up
+05-11 19:58:40 Engine You have chosen to be player 1.
+05-11 19:58:40 Engine Loading player hash420
+05-11 19:58:40 Engine Loaded 2 players
+05-11 19:58:41 Engine Awaiting challenge from other players...
+05-11 20:05:46 Engine Calling init() for player 1
+05-11 20:05:46 Model  GUI accessible at:
+https://yendor.cs.rit.edu/~royale/gobblet/gameview/animations.500/public.e46e243dbce3dbeba879354d1de2da460fb0ef2c53700eda53c46/gameid.404161/myplayer.1/
+05-11 20:05:46 Engine Processing move #1
+05-11 20:05:46 Engine Getting move from player 1
+05-11 20:05:46 Engine Validating move: PlayerMove [playerId=1, stack=2, size=4, start=[-1, -1], end=[1, 1]]
+05-11 20:05:46 Engine Move validated. Notifying other players
+05-11 20:05:46 Engine Notifying player 1 of last move
+05-11 20:05:46 Engine Finished processing player 1's move
+05-11 20:05:46 Engine Awaiting remote move #2
+05-11 20:05:50 Engine Downloaded remote move PlayerMove [playerId=2, stack=2, size=4, start=[-1, -1], end=[2, 2]]
+05-11 20:05:50 Engine Move validated. Notifying other players
+05-11 20:05:50 Engine Notifying player 1 of last move
+05-11 20:05:50 Engine Finished processing player 2's move
+05-11 20:05:50 Engine Processing move #3
+05-11 20:05:50 Engine Getting move from player 1
+05-11 20:05:50 Engine Validating move: PlayerMove [playerId=1, stack=2, size=3, start=[-1, -1], end=[0, 1]]
+05-11 20:05:50 Engine Move validated. Notifying other players
+05-11 20:05:50 Engine Notifying player 1 of last move
+05-11 20:05:50 Engine Finished processing player 1's move
+05-11 20:05:50 Engine Awaiting remote move #4
+05-11 20:05:53 Engine Downloaded remote move PlayerMove [playerId=2, stack=1, size=4, start=[-1, -1], end=[1, 0]]
+05-11 20:05:53 Engine Move validated. Notifying other players
+05-11 20:05:53 Engine Notifying player 1 of last move
+05-11 20:05:53 Engine Finished processing player 2's move
+05-11 20:05:53 Engine Processing move #5
+05-11 20:05:53 Engine Getting move from player 1
+05-11 20:05:53 Engine Validating move: PlayerMove [playerId=1, stack=1, size=4, start=[-1, -1], end=[3, 1]]
+05-11 20:05:53 Engine Move validated. Notifying other players
+05-11 20:05:53 Engine Notifying player 1 of last move
+05-11 20:05:53 Engine Finished processing player 1's move
+05-11 20:05:53 Engine Awaiting remote move #6
+05-11 20:05:55 Engine Downloaded remote move PlayerMove [playerId=2, stack=0, size=4, start=[1, 0], end=[2, 1]]
+05-11 20:05:55 Engine Move validated. Notifying other players
+05-11 20:05:55 Engine Notifying player 1 of last move
+05-11 20:05:56 Engine Finished processing player 2's move
+05-11 20:05:56 Engine Processing move #7
+05-11 20:05:56 Engine Getting move from player 1
+05-11 20:05:56 Engine Validating move: PlayerMove [playerId=1, stack=1, size=3, start=[-1, -1], end=[0, 0]]
+05-11 20:05:56 Engine Move validated. Notifying other players
+05-11 20:05:56 Engine Notifying player 1 of last move
+05-11 20:05:56 Engine Finished processing player 1's move
+05-11 20:05:56 Engine Awaiting remote move #8
+05-11 20:05:58 Engine Downloaded remote move PlayerMove [playerId=2, stack=1, size=3, start=[-1, -1], end=[2, 3]]
+05-11 20:05:58 Engine Move validated. Notifying other players
+05-11 20:05:58 Engine Notifying player 1 of last move
+05-11 20:05:58 Engine Finished processing player 2's move
+05-11 20:05:58 Engine Processing move #9
+05-11 20:05:58 Engine Getting move from player 1
+05-11 20:05:58 Engine Validating move: PlayerMove [playerId=1, stack=0, size=4, start=[1, 1], end=[2, 0]]
+05-11 20:05:58 Engine Move validated. Notifying other players
+05-11 20:05:58 Engine Notifying player 1 of last move
+05-11 20:05:59 Engine Finished processing player 1's move
+05-11 20:05:59 Engine Awaiting remote move #10
+05-11 20:06:02 Engine Downloaded remote move PlayerMove [playerId=2, stack=1, size=2, start=[-1, -1], end=[0, 2]]
+05-11 20:06:02 Engine Move validated. Notifying other players
+05-11 20:06:02 Engine Notifying player 1 of last move
+05-11 20:06:02 Engine Finished processing player 2's move
+05-11 20:06:02 Engine Processing move #11
+05-11 20:06:02 Engine Getting move from player 1
+05-11 20:06:02 Engine Validating move: PlayerMove [playerId=1, stack=1, size=2, start=[-1, -1], end=[0, 3]]
+05-11 20:06:02 Engine Move validated. Notifying other players
+05-11 20:06:02 Engine Notifying player 1 of last move
+05-11 20:06:02 Engine Finished processing player 1's move
+05-11 20:06:02 Engine Awaiting remote move #12
+05-11 20:06:04 Engine Downloaded remote move PlayerMove [playerId=2, stack=3, size=4, start=[-1, -1], end=[0, 2]]
+05-11 20:06:04 Engine Move validated. Notifying other players
+05-11 20:06:04 Engine Notifying player 1 of last move
+05-11 20:06:04 Engine Finished processing player 2's move
+05-11 20:06:04 Engine Processing move #13
+05-11 20:06:04 Engine Getting move from player 1
+05-11 20:06:05 Engine Validating move: PlayerMove [playerId=1, stack=1, size=1, start=[-1, -1], end=[3, 0]]
+05-11 20:06:05 Engine Move validated. Notifying other players
+05-11 20:06:05 Engine Notifying player 1 of last move
+05-11 20:06:05 Engine Finished processing player 1's move
+05-11 20:06:05 Engine Awaiting remote move #14
+05-11 20:06:07 Engine Downloaded remote move PlayerMove [playerId=2, stack=0, size=4, start=[2, 2], end=[1, 0]]
+05-11 20:06:07 Engine Move validated. Notifying other players
+05-11 20:06:07 Engine Notifying player 1 of last move
+05-11 20:06:07 Engine Finished processing player 2's move
+05-11 20:06:07 Engine Processing move #15
+05-11 20:06:07 Engine Getting move from player 1
+05-11 20:06:07 Engine Validating move: PlayerMove [playerId=1, stack=2, size=2, start=[-1, -1], end=[3, 3]]
+05-11 20:06:07 Engine Move validated. Notifying other players
+05-11 20:06:07 Engine Notifying player 1 of last move
+05-11 20:06:07 Engine Finished processing player 1's move
+05-11 20:06:07 Engine Awaiting remote move #16
+05-11 20:06:11 Engine Downloaded remote move PlayerMove [playerId=2, stack=2, size=3, start=[-1, -1], end=[3, 2]]
+05-11 20:06:11 Engine Move validated. Notifying other players
+05-11 20:06:11 Engine Notifying player 1 of last move
+05-11 20:06:11 Engine Finished processing player 2's move
+05-11 20:06:11 Engine Processing move #17
+05-11 20:06:11 Engine Getting move from player 1
+05-11 20:06:11 Engine Validating move: PlayerMove [playerId=1, stack=0, size=4, start=[2, 0], end=[3, 2]]
+05-11 20:06:11 Engine Move validated. Notifying other players
+05-11 20:06:11 Engine Notifying player 1 of last move
+05-11 20:06:11 Engine Finished processing player 1's move
+05-11 20:06:11 Engine Game has ended

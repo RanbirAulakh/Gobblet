@@ -1,0 +1,2 @@
+05-11 16:18:14 Engine Gobblet Java Client v1.3c by RIT CS Department starting up
+05-11 16:18:16 Engine Error: No lobbies available.  Please host a game instead

@@ -1,19 +1,18 @@
 package Players.hash420;
 
 /*
-* Piece.java
-*
-* Version:
-* $Id:
-*
-* Revisions:
-* $Log:
-*
+ * Gobblet.java
+ *
+ * Version:
+ * $Id:
+ *
+ * Revisions:
+ * $Log:
+ *
 */
 
 
 /**
-
  * @author Ranbir Aulakh 
  * @author Kemoy Campbell
  */
@@ -28,8 +27,7 @@ public class Gobblet {
 	 * @param size - stack Size (1, 2, 3, or 4)
 	 * @param ownerID - Owner ID (1 - 2)
 	 */
-	public Gobblet(int ownerID, int row, int col)
-	{
+	public Gobblet(int ownerID, int row, int col){
 		this.ownerID = ownerID;
 		this.row = row;
 		this.col = col;
@@ -47,8 +45,7 @@ public class Gobblet {
 	 * Get the row
 	 * return row
 	 */
-	public int getRow()
-	{
+	public int getRow(){
 		return this.row;
 	}
 	
@@ -56,8 +53,7 @@ public class Gobblet {
 	 * Get the col
 	 * return col
 	 */
-	public int getCol()
-	{
+	public int getCol(){
 		return this.col;
 	}
 	
@@ -65,26 +61,17 @@ public class Gobblet {
 	 * Overridding the equals method
 	 */
 	@Override
-	public boolean equals(Object o)
-	{
-		if(!(o instanceof Gobblet))
-		{
+	public boolean equals(Object o){
+		if(!(o instanceof Gobblet)){
 			return false;
 		}
 		Gobblet t = (Gobblet)o;
-		if((this.row==t.row)&& (this.col == t.col) && this.ownerID == t.ownerID)
-		{
+		if((this.row==t.row)&& (this.col == t.col) && this.ownerID == t.ownerID){
 			return true;
 		}
-		else
-		{
+		else{
 			return false;
-		}
-			
+		}			
 	}
-
-
-
-
 }
 

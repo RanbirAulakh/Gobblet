@@ -3,20 +3,20 @@
 
 # Your API key
 # Get one at https://yendor.cs.rit.edu/~royale/gobblet/getapikey/
-API_KEY 3262200420b97ea7859
+API_KEY 3b5d99d3a38554f23c2
 
 ########################### MAIN GAME CONFIG ###############################
 
 # List of player modules separated by commas.  
 # The number of modules listed here specifies the number of players in the game 
 # To play via the GUI, use Human.  
-PLAYER_MODULES hash420, EasyPlayer
+PLAYER_MODULES hash420, THX1138
 
 # Enables multi-client play
 REMOTE False
 
 # Does the graphical UI display?
-UI True
+UI False
 
 # Enable/disable automatic gameplay
 # True = automatic - moves are made based on the animation speed
@@ -32,7 +32,7 @@ ANIMATION_SPEED 500
 FILE_LOGGING True
 
 # Should the game log be printed during gameplay? 
-STDOUT_LOGGING True
+STDOUT_LOGGING False
 
 # PRE_MOVE ---
 # Moves to make before the players get control
@@ -48,11 +48,6 @@ STDOUT_LOGGING True
 # Below are listed four sample pre-moves for a 2-player game.
 # Uncomment them to use them.
 # Format for PlayerMove(playerId, stack, size, start, end)
-
-
-
-
-
 
 
 ################################# ADVANCED #####################################

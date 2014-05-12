@@ -1,13 +1,14 @@
 package Players.hash420;
 
 /*
-* hash420.java
-*
-* Version:
-* $Id$
-*
-* Revisions:
-* $Log$
+ * hash420.java
+ *
+ * Version:
+ * $Id:
+ *
+ * Revisions:
+ * $Log:
+ *
 */
 
 import java.util.Random;
@@ -19,22 +20,17 @@ import Interface.GobbletPart1;
 import Interface.PlayerModule;
 import Interface.PlayerMove;
 
+
 /**
  * Gobblet 4x4 Board
- * @author Ranbir Aulakh
  * @author Kemoy Campbell
- *
+ * @author Ranbir Aulakh
  */
 
+//sometime 
 public class hash420 implements PlayerModule, GobbletPart1 
 {
-	//global variables that is used heavily inside of the move function especially in defending and offensive
-	private final int emptyPos = -1;
-	private Coordinate temp, end, start;
-	private boolean moved, picked, runSmartMove;
-	private PlayerMove move;
-	private int stack = 0, piece, movesMade = 0, playerId;
-	private Random rand = new Random();
+	private int playerId;
 	private Logger logger;
 
 	//USE CONSTANTS FOR THE BOARD IMPLEMENT
@@ -42,6 +38,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 
 	//BOARD STACK
 	private Stack<Piece> board[][] = new Stack[ROW][COL];//can I see if i can help
+
 
 	//PLAYER STACKS
 	private Stack<Integer>[] player1Stack = new Stack[3];
@@ -51,12 +48,28 @@ public class hash420 implements PlayerModule, GobbletPart1
 	//THREAT LOCATION MEMORY TRACKER
 	private ArrayList<Gobblet> playerThreat = new ArrayList<Gobblet>();
 
-	//Moves arrayList;
+	//MoveArray is used to store moves desired to perform by smartMove(opponentCoord)
 	private ArrayList<Gobblet> moveArray;
 
-	//win arrayList
-	private ArrayList<Gobblet> winArray;
+	private ArrayList<Gobblet> twoInARowThreat;
 
+	//win arrayList
+	private ArrayList<Gobblet>winArray;
+
+
+	//global variables that is used heavily inside of the move function especially in defending and offensive
+	private final int emptyPos = -1;
+	private Coordinate temp;
+	private Coordinate end;
+	private boolean moved;
+	private boolean picked;
+	private Coordinate start;
+	private PlayerMove move;
+	private int stack=0;
+	private int piece;
+	private int movesMade = 0;
+	private Random rand = new Random();
+	private boolean runSmartMove;
 
 	/**
 	 * Display, on standard output, a representation of how the physical game 
@@ -111,15 +124,16 @@ public class hash420 implements PlayerModule, GobbletPart1
 	 * Which player is this?
 	 * @returns the numeric id of this module's player
 	 */
+	@Override
 	public int getID() {
-		return playerId;
+		return this.playerId;
 	}
 
 	/**
 	 * Describe what is visible on the board at a given location.
-	 * @param ROW - the row of interest on the board (0-based)
+	 * @param row - the row of interest on the board (0-based)
 	 * @param col - the column of interest on the board (0-based)
-	 * @return the ID of the player (1-2) that owns the piece on 
+	 * @return the ID of the player (1-2) that owns the piece on
 	 * top of the stack of pieces at the given location on the board.
 	 * If the stack is empty, return -1.
 	 */
@@ -127,7 +141,9 @@ public class hash420 implements PlayerModule, GobbletPart1
 		if(board[row][col].isEmpty()){
 			return -1;
 		}
-		return board[row][col].peek().getPlayerId();
+		else{
+			return board[row][col].peek().getPlayerId();
+		}
 	}
 
 	/**
@@ -141,24 +157,24 @@ public class hash420 implements PlayerModule, GobbletPart1
 		if(board[row][col].isEmpty()){
 			return -1;
 		}
-		return board[row][col].peek().getPieceValue();
+		else{
+			return board[row][col].peek().getPieceValue();
+		}
 	}
 	
 	/**
-	 * Describe what remains on top of one of the stacks of 
-	 * unplayed pieces of a certain player.
+	 * Describe what remains on top of one of the stacks of unplayed pieces of a certain player.
 	 * @param playerID - the player ID (1-2)
-	 * @param stackNum - the number of one of the player's unplayed 
-	 * pieces stacks (1-based)
-	 * @return the size of the piece on top of the identified stack of 
-	 * unplayed pieces. If the identified stack is empty, -1.
+	 * @param stackNum - the number of one of the player's unplayed pieces stacks (1-based)
+	 * @return the size of the piece on top of the identified stack of unplayed pieces.
+	 * If the identified stack is empty, -1.
 	 */
 	public int getTopSizeOnStack(int playerID, int stackNum) 
 	{
-		int size = 0;
-		int stack = stackNum - 1;
-		
-		if(playerID == 1){
+		int size=0;
+		int stack = stackNum-1;
+		//System.out.println("stack is: " +stackNum);
+		if(playerID==1){
 			if(player1Stack[stack].isEmpty()){
 				return -1;
 			}
@@ -167,7 +183,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 			}
 		}
 
-		if(playerID == 2){
+		if(playerID==2){
 			if(player2Stack[stack].isEmpty()){
 				return -1;
 			}
@@ -189,8 +205,8 @@ public class hash420 implements PlayerModule, GobbletPart1
 		this.playerId = playerId;
 
 		//initalize the board and create an empty stack at each location
-		for(int row = 0; row < ROW; row++){
-			for(int col = 0; col < COL; col++ ){
+		for(int row=0; row<ROW; row++){
+			for(int col=0; col<COL; col++ ){
 				board[row][col] = new Stack<Piece>();
 				//board[row][col].push(new Piece(playerId,0));
 			}
@@ -198,13 +214,13 @@ public class hash420 implements PlayerModule, GobbletPart1
 
 		//SET UP THE PLAYERS WITH THEIR REPRESENTATION PIECES
 		//Each players have three pieces of stack
-		for(int i = 0; i < 3; i++){
+		for(int i=0;i<3;i++){
 			player1Stack[i] = new Stack<Integer>();
 			player2Stack[i] = new Stack<Integer>();
 		}
 
-		for(int i = 0; i < 3; i++){
-			for(int j = 1; j <= 4; j++){
+		for(int i=0;i<3;i++){
+			for(int j=1;j<=4;j++){
 				player1Stack[i].push(j);
 				player2Stack[i].push(j);
 			}
@@ -217,6 +233,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 	 * in the game. The move has already been validated.
 	 * @param move - the move This method must be implemented for all parts of the project.
 	 */
+	@Override
 	public void lastMove(PlayerMove move) {
 		int offBoardCol = -1;//default position for offboard col
 		int offBoardRow = -1;//default position for offboard row
@@ -236,13 +253,16 @@ public class hash420 implements PlayerModule, GobbletPart1
 		//if player id is 1
 		if(id==1){	
 			//the piece need to move is off the board
-			if(startRow == offBoardRow && startCol == offBoardCol){
+			if(startRow==offBoardRow && startCol==offBoardCol){
+				//System.out.println("The stack here is: "+stack);
 				stackPos = player1Stack[stack-1].pop();
 				board[endRow][endCol].push(new Piece(id,stackPos));
 			}
 			else{
 				//the piece is already on the board
 				popPieceFromBoard = board[startRow][startCol].pop();
+				//System.out.println("PIECE POPPED :"+popPieceFromBoard.getPieceValue());
+				//System.out.println(stack - 1);
 				board[endRow][endCol].push(new Piece(popPieceFromBoard.getPlayerId(),popPieceFromBoard.getPieceValue()));
 			}
 		}
@@ -250,6 +270,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 		if(id==2){	
 			//the piece need to move is off the board
 			if(startRow==offBoardRow && startCol==offBoardCol){
+
 				stackPos = (int)player2Stack[stack-1].pop();
 				board[endRow][endCol].push(new Piece(id,stackPos));
 			}
@@ -270,9 +291,10 @@ public class hash420 implements PlayerModule, GobbletPart1
 	 * @param an object representing this player module's move This method can be 
 	 * stubbed out for part 1. (Suggestion: "throw new UnsupportedOperationException()")
 	 */
+	@Override
 	public PlayerMove move() 
 	{
-		//necessary variable and initalizations
+		//necessary variable and initializations
 		move = null;
 		stack = 0;
 		piece = 0;
@@ -287,6 +309,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 		runSmartMove = false;
 		int myEnemy = Opponent();
 		picked = false;
+
 
 		//Am i the first to go?
 		isFirstToGo();
@@ -304,54 +327,86 @@ public class hash420 implements PlayerModule, GobbletPart1
 				break;
 			}
 		}//end of selecting the correct stack
-		//WINNING
+
+		//updating the memory in the list to correct reflect the game
+		updateThreatLocationList();
+
+		/*--------------------------------
+		 * WINNING STRATEGY FUNCTIONS
+		 *---------------------------------*/
 		horizontalWin(playerId,temp,opponentCoord);
 		verticalWinning(playerId,temp,opponentCoord);
 		diagonalWin(playerId,temp,opponentCoord);
-		//DEFENDING STRATEGIES
+		defendTwoInARowHorizVerticalByBlockingFirstCell();
+		//twoInARowThreatDanger();
+
+		/*--------------------------------
+		 * DEFENDING STRATEGY FUNCTIONS
+		 *---------------------------------*/
 		defendHorizontal(playerId,temp,opponentCoord,  myCoord, myEnemy);
 		defendVertical(playerId,temp,opponentCoord, myCoord, myEnemy);
 		defendingDiagonal(playerId, temp,opponentCoord, myCoord,myEnemy);
 
-		//creating the possible moves
-		smartMoves(opponentCoord);//go to the function
-		//randomly selecting one of the possible moves and execute if need
+		/*-----------------------------------------------------------------------------------------
+		 * LOOK AT THE BOARD FOR:
+		 *   ANY OF MY TWO PIECE IN  A ROW AND TWO EMPTY THEN ADD IT TO MOVE ARRAY LSIT
+		 *   ANY OF MY TWO PIECE IN A ROW AND 1 OPPONENT PIECE THAT IS NOT 4 AND ADD IT TO THE LIST
+		 *------------------------------------------------------------------------------------------*/
+		smartMoves(opponentCoord);
+		/*---------------------------------------------------
+		 * RANDOMLY SELECT ONE OF THE MOVES THAT WAS CREATED
+		 * USING SMARTMOVE(OPPONENTCOORD) FUNCTION
+		 *----------------------------------------------------*/
 		executeSmartMove();
+
+		/*-----------------------------------------------------
+		 * IF I HAVENT MADE ANY MOVES ABOVE AND THE TOTAL MOVES
+		 * I HAVE MADE ON THE BOARD IS LESS THAN 3 THAN RANDOMLY
+		 * FIND AN EMPTY SPOT AND MAKE THE MOVE
+		 *-----------------------------------------------------*/
 		if(!moved && movesMade<=2)
 		{
-			//System.out.println("got here?");
 			int randomCol = (int)(Math.random() *(board.length-1));
 			int randomRow = (int)(Math.random() *(board.length-1));
 			int randomStack =(int)(Math.random() *(generalStack.length-1)+1);
 
-			//the positions are not empty
-
+			//the spot on the board is not available
 			while(this.getTopOwnerOnBoard(randomRow, randomCol)!=emptyPos)
 			{
 				randomCol = (int)(Math.random() *(board.length-1));
-				//System.out.println("final random for col" + randomCol);
 				randomRow = (int)(Math.random() *(board.length-1));
-				//System.out.println("final random for row" + randomRow);
 			}
+
+			//such stack is not available
 			while(this.getTopSizeOnStack(playerId, randomStack)==emptyPos)
 			{
 				randomStack =(int)(Math.random() *(generalStack.length-1)+1);
 			}
 
-
-
 			start = new Coordinate(-1,-1);
 			end = new Coordinate(randomRow, randomCol);
 			piece = this.getTopSizeOnStack(playerId, randomStack);
 			stack = randomStack;
-			//System.out.println("Executed???");
 			moved = true;
-
-
 		}
+
+		/*------------------------------------------------------------
+		 * THIS FUNCTION MAKE MOVES ONTO THE FIRST EMPTY SPOT OF THE
+		 * BOARD IF NO MOVES HAS NOT OCCURS PREVIOUSLY AND THE RANDOM
+		 * MOVE ABOVE CANNOT OCCURS BECAUSE MOVESMADE CONDITION IS NOT
+		 * TRUE. THIS IS DONE WITHOUT GOBBLE THE OPPONENT
+		 *--------------------------------------------------------------*/
 		moveWithoutGobbleTheOpponent();
+
+		/*-------------------------------------------
+		 * USE A VALID PIECE AND GOBBLE THE OPPONENT
+		 *-------------------------------------------*/
 		gobbleOpponentFromBoard();
 
+		/*-------------------------
+		 * PEFORMS THE APPROPRIATE
+		 * MOVE ONCE MOVED==TRUE
+		 *-------------------------*/
 		if(moved)
 		{
 			move = new PlayerMove(playerId, stack,piece, start, end);//the blue was my code playing itself using the AI i made sweet! look through 
@@ -359,13 +414,17 @@ public class hash420 implements PlayerModule, GobbletPart1
 		}
 
 		return move;
-
-
 	}
 
 	/**
-	 * Generate smartMoves
-	 * FUNCTION PASSED
+	 * This function takes a look at the current state of board for the following conditions:
+	 *  I have two pieces in a row and there are two empties spot
+	 *  I have two piece and one of my opponent is on the spot but that piece is not 4
+	 *  
+	 *  The conditions are then added inside an array List calls moveArray which will
+	 *  create a list of best move objects.
+	 *  This code only execute when both condition are true
+	 *  @param OpponentCoord - takes the coordinate of the opponent's position default is (-1,-1)
 	 */
 	public void smartMoves(Coordinate opponentCoord)
 	{
@@ -397,7 +456,6 @@ public class hash420 implements PlayerModule, GobbletPart1
 				}
 				if(mine == 2 && empty1 == 2)
 				{
-					//System.out.println("empty coordinate: " + emptyCoord.getRow()+","+emptyCoord.getCol());
 					moveArray.add(new Gobblet(playerId, emptyCoord.getRow(), emptyCoord.getCol()));	
 				}
 				else if(mine==2 && threat==1 && empty1==1)
@@ -407,6 +465,10 @@ public class hash420 implements PlayerModule, GobbletPart1
 						moveArray.add(new Gobblet(playerId, emptyCoord.getRow(), emptyCoord.getCol()));
 					}
 
+				}
+				else if(mine==1 && empty1==3)
+				{
+					moveArray.add(new Gobblet(playerId, emptyCoord.getRow(), emptyCoord.getCol()));
 				}
 			}
 		}//end of horizontal checking
@@ -434,20 +496,21 @@ public class hash420 implements PlayerModule, GobbletPart1
 				}
 				if(mine == 2 && empty == 2)
 				{
-					//System.out.println("empty coordinate: " + emptyCoord.getCol()+","+emptyCoord.getRow());
 					moveArray.add(new Gobblet(playerId, emptyCoord.getCol(), emptyCoord.getRow()));	
 				}
 				else if(mine==2 && threat==1 && empty==1)
 				{
 					if(this.getTopSizeOnBoard(opponentCoord.getCol(), opponentCoord.getRow())!=4)
 					{
-						//System.out.println("Empty coordinate for vertical: " + emptyCoord.getCol() +" "+emptyCoord.getRow() );
 						moveArray.add(new Gobblet(playerId, emptyCoord.getCol(), emptyCoord.getRow()));
 					}
 
 				}
+				else if(empty==3 && mine==1)
+				{
+					moveArray.add(new Gobblet(playerId, emptyCoord.getCol(), emptyCoord.getRow()));
+				}
 			}
-
 		}//end of vertical checking
 
 		/*-----------------------------------
@@ -487,7 +550,10 @@ public class hash420 implements PlayerModule, GobbletPart1
 				else if(threat ==1 && empty==1)
 					if(this.getTopSizeOnBoard(opponentCoord.getRow(), opponentCoord.getCol())!=4)
 						moveArray.add(new Gobblet(playerId, emptyCoord.getRow(), emptyCoord.getCol()));
-
+					else if(empty==3 && mine==1)
+					{
+						moveArray.add(new Gobblet(playerId, emptyCoord.getRow(), emptyCoord.getCol()));
+					}
 			}
 			//add to the moveArray List
 			row1++; col1--;
@@ -522,12 +588,15 @@ public class hash420 implements PlayerModule, GobbletPart1
 			if(mine2 == 2)
 			{
 				//there are two empty spots or at the least 1 threat
-				if(empty2 == 2)
+				if(empty2==3 && mine2==3)
+				{
+					moveArray.add(new Gobblet(playerId, emptyCoord.getRow(), emptyCoord.getCol()));
+				}
+				else if(empty2 == 2)
 					moveArray.add(new Gobblet(playerId, emptyCoord.getRow(), emptyCoord.getCol()));
 				else if(threat2 ==1 && empty2==1)
 					if(this.getTopSizeOnBoard(opponentCoord.getRow(), opponentCoord.getCol())!=4)
 						moveArray.add(new Gobblet(playerId, emptyCoord.getRow(), emptyCoord.getCol()));
-
 			}
 			//add to the moveArray List
 			row2++; col2++;
@@ -535,14 +604,14 @@ public class hash420 implements PlayerModule, GobbletPart1
 		if(moveArray.size()>=1)
 		{
 			runSmartMove = true;
-			//System.out.println("Executing...");
 		}
-
 	}
 
 	/**
-	 * This method checks to see if I am the first person to go and make a move
-	 * by taking my highest piece from the stack and just randomly put it anywhere
+	 * This method uses a boolean to check to see if I am the first person to go and make a move
+	 * by taking my highest piece from the stack and just randomly put it anywhere.
+	 * 
+	 * If the condition are true then this function will make a random moves.
 	 */
 	public void isFirstToGo()
 	{
@@ -568,16 +637,13 @@ public class hash420 implements PlayerModule, GobbletPart1
 			piece = this.getTopSizeOnStack(playerId, randomStack);
 			stack = randomStack;
 			moved = true;
-
 		}
-
 	}//end of is finding out if i am first to go
 
 	/**
 	 * This function selects the correct player stack
-	 * @param id
-	 * @return
-	 * FUNCTION PASSED
+	 * @param id - the player's id
+	 * @return player's stack object
 	 */
 	public Stack[] stackSelection(int id)
 	{
@@ -589,14 +655,13 @@ public class hash420 implements PlayerModule, GobbletPart1
 	}//end of selecting the correct player's stack
 
 	/**
-	 * method to run the smart move
-	 * FUNCTION PASSED
+	 * This method randomly generates a moves to make if there were any
+	 * created by smartMove(opponentCoord) function.
 	 */
 	public void executeSmartMove()
 	{
 		if(!moved)
 		{
-			System.out.println("The boolean condition for smartMove is : " + moved);
 			if(runSmartMove)
 			{
 				if(moveArray.size()==1)
@@ -610,15 +675,20 @@ public class hash420 implements PlayerModule, GobbletPart1
 					end = new Coordinate(moveArray.get(moveRandom).getRow(),moveArray.get(moveRandom).getCol());
 				}
 				start = new Coordinate(-1,-1);
-				//System.out.println("SmartMove coordinate : "+ end.getRow() +"," +end.getCol());
 				moved = true;
 			}
 		}
-
 	}//end of executeSmartMove
 
 	/**
-	 * This function defends threat in the horizontal 
+	 * This function defends threat in the horizontal.
+	 * It checks horizontal if there are any threat then place the highest piece on the 
+	 * empty location and add that threat location to the memory address.
+	 * @param id - player's id
+	 * @param temp - a default temp coordinate (-1,-1)
+	 * @param opponentCoord -  the opponent coordinate default (-1,-1)
+	 * @param myCoord - player's coordinate default (-1,-1)
+	 * @param myEnemy - the opponent player id
 	 */
 	public void defendHorizontal(int id, Coordinate temp, Coordinate opponentCoord, Coordinate myCoord, int myEnemy)
 	{
@@ -647,40 +717,61 @@ public class hash420 implements PlayerModule, GobbletPart1
 				{
 					playerThreat.add(new Gobblet(playerId, temp.getRow(), temp.getCol()));
 					int highest = highestPiece(id);
+					
+					int desired = 4;
 					generalStack = stackSelection(id);
-					pickAndDefendFromBoard();
-					//System.out.println("Temp before modified: "+temp.getRow()+","+temp.getCol());
-					if(picked == true)
+					boolean execute = false;
+					if(!execute)
 					{
-						end = temp;
-						moved = true;
-						//System.out.println("Picked is " + picked);
-						break;
+						if(highest ==  desired)
+						{
+							for(int i =1; i<generalStack.length + 1; i++ )
+							{
+								if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
+								{
+									stack = i;
+									start = new Coordinate(-1,-1);
+									piece = this.getTopSizeOnStack(id, stack);
+									end = temp;
+									playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
+									moved = true;
+									execute = true;
+									break;
+								}      
+							}//end of picking highest stack	
+						}
 					}
-
-					else
+					else if(!execute)
 					{
-
+						pickAndDefendFromBoard();
+						if(picked == true)
+						{
+							end = temp;
+							moved = true;
+							break;
+						}
+					}
+					//just sucks it up I lost
+					if(!execute)
+					{
 						for(int i =1; i<generalStack.length + 1; i++ )
 						{
 							if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
 							{
-								//System.out.println("Look here Ranbir");
 								stack = i;
 								start = new Coordinate(-1,-1);
 								piece = this.getTopSizeOnStack(id, stack);
 								end = temp;
 								playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
 								moved = true;
+								execute = true;
 								break;
 
 							}      
 						}//end of picking highest stack
-					}//end else
-
-
+					}
 				}//if threat is 3
-				
+
 				if(threat==3 && mine==1)
 				{
 					if(this.getTopSizeOnBoard(myCoord.getRow(), myCoord.getCol())!=4)
@@ -691,13 +782,16 @@ public class hash420 implements PlayerModule, GobbletPart1
 			}//col
 		}//row
 	}//end of horizontal threating
+	
 	/**
-	 * This function checks to see if there is any threat in the vertical and defends it
-	 * @param id
-	 * @param temp
-	 * @param opponentCoord
-	 * @param myCoord
-	 * @param myEnemy
+	 * This function checks to see if there is any threat in the vertical and defends it. 
+	 * It places a highest guarding piece on the empty spot and add the threat location
+	 * to the memory
+	 * @param id - player's id
+	 * @param temp - the temp coordinate default(-1,-1)
+	 * @param opponentCoord - the opponent's coordinate default(-1,-1)
+	 * @param myCoord - the player's coordinate default(-1,-1)
+	 * @param myEnemy - the opponent's player id
 	 */
 	public void defendVertical(int id, Coordinate temp, Coordinate opponentCoord, Coordinate myCoord, int myEnemy)
 	{
@@ -726,38 +820,63 @@ public class hash420 implements PlayerModule, GobbletPart1
 				//use my highest piece and defend
 				if(threat == 3 && empty == 1)
 				{
-
 					playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
-					int highest = highestPiece(id);
 					generalStack = stackSelection(id);
-					pickAndDefendFromBoard();
-					//System.out.println("Temp before modified: "+temp.getRow()+","+temp.getCol());
-					if(picked == true)
+					int highest = highestPiece(id);
+					int desired = 4;
+					boolean execute = false;
+					
+					if(!execute)
 					{
-						end = temp;
-						moved = true;
-						//System.out.println("Picked is " + picked);
-						break;
-					}
-					else
-					{
+						if(highest ==  desired)
+						{
+							for(int i =1; i<generalStack.length + 1; i++ )
+							{
+								if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
+								{
+									stack = i;
+									start = new Coordinate(-1,-1);
+									piece = this.getTopSizeOnStack(id, stack);
+									end = temp;
+									playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
+									moved = true;
+									execute = true;
+									break;
 
+								}      
+							}//end of picking highest stack
+						}
+					}
+					else if(!execute )
+					{
+						pickAndDefendFromBoard();
+						if(picked == true)
+						{
+							end = temp;
+							moved = true;
+							execute = true;
+							break;
+						}
+					}
+					
+					//last choice just sucks it up i lost
+					if(!execute)
+					{
 						for(int i =1; i<generalStack.length + 1; i++ )
 						{
 							if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
 							{
-								//System.out.println("Look here Ranbir");
 								stack = i;
 								start = new Coordinate(-1,-1);
 								piece = this.getTopSizeOnStack(id, stack);
 								end = temp;
 								playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
 								moved = true;
+								execute = true;
 								break;
-
 							}      
 						}//end of picking highest stack
-					}//end else
+					}
 				}
 				if(threat==3 && mine==1)
 				{
@@ -769,13 +888,15 @@ public class hash420 implements PlayerModule, GobbletPart1
 			}
 		}      
 	}//end of checking vertical for threats
+	
 	/**
-	 * This function checks for threats in the diagonal
-	 * @param id
-	 * @param temp
-	 * @param opponentCoord
-	 * @param myCoord
-	 * @param myEnemy
+	 * This function checks for threats in the diagonal. If a threat is found the empty spot is guarded
+	 * and the threat location is added to the memory
+	 * @param id - player's id
+	 * @param temp - the temp coordinate default(-1,-1)
+	 * @param opponentCoord - the opponent's coordinate default(-1,-1)
+	 * @param myCoord - the player's coordinate default(-1,-1)
+	 * @param myEnemy - the opponent's player id
 	 */
 	public void defendingDiagonal(int id, Coordinate temp,Coordinate opponentCoord,Coordinate myCoord,int myEnemy)
 	{
@@ -809,19 +930,44 @@ public class hash420 implements PlayerModule, GobbletPart1
 					playerThreat.add(new Gobblet(playerId, temp.getRow(), temp.getCol()));
 					int highest = highestPiece(id);
 					generalStack = stackSelection(id);
-					pickAndDefendFromBoard();
-					System.out.println("Temp before modified: "+temp.getRow()+","+temp.getCol());
-					if(picked == true)
+					boolean execute = false;
+					int desired = 4;
+					
+					if(!execute)
 					{
-						end = temp;
-						moved = true;
-						System.out.println("Picked is " + picked);
-						break;
+						if(highest == desired)
+						{
+							for(int i =1; i<generalStack.length + 1; i++ )
+							{
+								if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
+								{
+									System.out.println("Look here Ranbir");
+									stack = i;
+									start = new Coordinate(-1,-1);
+									piece = this.getTopSizeOnStack(id, stack);
+									end = temp;
+									playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
+									moved = true;
+									execute = true;
+									break;
+								}      
+							}//end of picking highest stack
+						}
 					}
-
-					else
+					else if(!execute)
 					{
-
+						pickAndDefendFromBoard();
+						if(picked == true)
+						{
+							end = temp;
+							moved = true;
+							execute = true;
+							break;
+						}
+					}
+					//last choice to just suck it up
+					if(!execute)
+					{
 						for(int i =1; i<generalStack.length + 1; i++ )
 						{
 							if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
@@ -833,11 +979,11 @@ public class hash420 implements PlayerModule, GobbletPart1
 								end = temp;
 								playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
 								moved = true;
+								execute = true;
 								break;
-
 							}      
 						}//end of picking highest stack
-					}//end else
+					}
 				}
 				if(threat==3 && mine==1)
 				{
@@ -871,7 +1017,6 @@ public class hash420 implements PlayerModule, GobbletPart1
 
 				else
 				{
-
 					empty++;
 					temp = new Coordinate(row,col);
 				}
@@ -881,20 +1026,45 @@ public class hash420 implements PlayerModule, GobbletPart1
 				{
 					playerThreat.add(new Gobblet(playerId, temp.getRow(), temp.getCol()));
 					int highest = highestPiece(id);
+					int desired = 4;
+					boolean execute = false;
 					generalStack = stackSelection(id);
-					pickAndDefendFromBoard();
-					//System.out.println("Temp before modified: "+temp.getRow()+","+temp.getCol());
-					if(picked == true)
+					
+					if(!execute)
 					{
-						end = temp;
-						moved = true;
-						//System.out.println("Picked is " + picked);
-						break;
+						if(highest == desired)
+						{
+							for(int i =1; i<generalStack.length + 1; i++ )
+							{
+								if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
+								{
+									stack = i;
+									start = new Coordinate(-1,-1);
+									piece = this.getTopSizeOnStack(id, stack);
+									end = temp;
+									playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
+									moved = true;
+									execute = true;
+									break;
+								}      
+							}//end of picking highest stack
+						}
 					}
-
-					else
+					else if(!execute)
 					{
-
+						pickAndDefendFromBoard();
+						if(picked == true)
+						{
+							end = temp;
+							moved = true;
+							execute = true;
+							break;
+						}
+					}
+					
+					//last choice to just pick any one that i can use to defend myself
+					if(!execute)
+					{
 						for(int i =1; i<generalStack.length + 1; i++ )
 						{
 							if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
@@ -905,11 +1075,11 @@ public class hash420 implements PlayerModule, GobbletPart1
 								end = temp;
 								playerThreat.add(new Gobblet(playerId,temp.getRow(),temp.getCol()));
 								moved = true;
+								execute = true;
 								break;
-
 							}      
 						}//end of picking highest stack
-					}//end else
+					}
 				}
 				if(threat==3 && mine==1)
 				{
@@ -924,7 +1094,8 @@ public class hash420 implements PlayerModule, GobbletPart1
 	}//end of diagonal defending function
 
 	/**
-	 * This function picks a piece from the board which is use in defendings
+	 * This function picks a safe highest piece from the board
+	 * and use it to defense
 	 */
 	public void pickAndDefendFromBoard()
 	{
@@ -953,8 +1124,8 @@ public class hash420 implements PlayerModule, GobbletPart1
 	}
 
 	/**
-	 * This function pick a piece from the board and use it in winning :-P
-	 * FUNCTION PASSED
+	 * This function pick a piece from the board and use it in winning
+	 * the game.
 	 */
 	public void pickAndWinFromBoard(int opponentPiece, Coordinate opponentCoord)
 	{
@@ -975,48 +1146,71 @@ public class hash420 implements PlayerModule, GobbletPart1
 						moved = true;
 						quit = true;
 						break;
-
 					}
 				}
-
 			}
 		}
 	}
-	
+
 	/**
-	 * This picks a piece from the board(4) and gobble my smaller piece to prevent the opponent from winning
-	 * 
+	 * This picks a piece from the board(4) and gobble my smaller piece 
+	 * to prevent the opponent from winning 
 	 */
 	public void gobbleSelfPreventWin(Coordinate myCoord)
 	{
 		boolean quit = false;
-		for(int i=0; i<board.length &&!quit; i++)
+		//use one of the piece from the stack instead
+		for(int i = 1; i<generalStack.length +1; i++)
 		{
-			for(int j = 0; j<board.length; j++)
+			if(!generalStack[i-1].isEmpty())
 			{
-				//this is me and my piece is greater than the opponent's
-				if(this.getTopOwnerOnBoard(i, j)==playerId)
+				if(this.getTopSizeOnStack(playerId, i)==4)
 				{
-					if(this.getTopSizeOnBoard(i, j)==4 && !playerThreat.contains(new Gobblet(playerId,i,j)))
+					stack = i;
+					piece = this.getTopSizeOnStack(playerId, stack);
+					start = new Coordinate(-1,-1);
+					end = new Coordinate(myCoord.getRow(),myCoord.getCol());
+					playerThreat.add(new Gobblet(playerId,end.getRow(),end.getCol()));
+					moved = true;
+					quit = true;
+					break;
+				}
+			}
+		}
+		
+		if(quit== false)
+		{
+			for(int i=0; i<board.length &&!quit; i++)
+			{
+				for(int j = 0; j<board.length; j++)
+				{
+					//this is me and my piece greater than the one guidiing my opponent
+					if(this.getTopOwnerOnBoard(i, j)==playerId)
 					{
-						stack = 0; 
-						piece = this.getTopSizeOnBoard(i, j);
-						start = new Coordinate(i,j);
-						end = new Coordinate(myCoord.getRow(),myCoord.getCol());
-						playerThreat.add(new Gobblet(playerId,end.getRow(),end.getCol()));
-						moved = true;
-						quit = true;
-						break;
+						if(this.getTopSizeOnBoard(i, j)==4 && !playerThreat.contains(new Gobblet(playerId,i,j)))
+						{
+							stack = 0; 
+							piece = this.getTopSizeOnBoard(i, j);
+							start = new Coordinate(i,j);
+							end = new Coordinate(myCoord.getRow(),myCoord.getCol());
+							playerThreat.add(new Gobblet(playerId,end.getRow(),end.getCol()));
+							moved = true;
+							quit = true;
+							break;
 
+						}
 					}
+
 				}
 
 			}
+			
 		}
 	}
 
 	/**
 	 * This function returns who is the opponent
+	 * @return an integer represent the opponent's player id
 	 */
 	public int Opponent()
 	{
@@ -1026,7 +1220,8 @@ public class hash420 implements PlayerModule, GobbletPart1
 	}
 
 	/**
-	 * This method is used to select the highest piece
+	 * This method is used to select the highest piece from the stack.
+	 * @return highest piece current available on the stack.
 	 */
 	public int highestPiece(int id)
 	{
@@ -1045,8 +1240,12 @@ public class hash420 implements PlayerModule, GobbletPart1
 	}
 
 	/**
-	 * This fuction checks if it is possible for the player to perform a quick win in horisional row
+	 * This function checks if it is possible for the player to perform a quick win in horizontal row
 	 * hence prevent if from going to defends first and let the opponent win
+	 * 
+	 * @param id - the player's id
+	 * @param temp - a temp coordinate default (-1,-1)
+	 * @param opponentCoord -  the opponent coordinate
 	 */
 	public void horizontalWin(int id, Coordinate temp, Coordinate opponentCoord)
 	{
@@ -1091,16 +1290,20 @@ public class hash420 implements PlayerModule, GobbletPart1
 				{
 					int opponentPiece = this.getTopSizeOnBoard(opponentCoord.getRow(), opponentCoord.getCol());
 					pickAndWinFromBoard(opponentPiece,opponentCoord);
-
-
 				}
-
 				//gobble the opponent and win
 			}
 		}
 	}//end of horizontial win
+
 	/**
-	 * This function checks if it is possible for a player to win quick via 
+	 * This function checks if it is possible for a player to win quickly by placing piece
+	 * in the vertical rows thus prevent it from going to defending not realizing that it can 
+	 * win via vertical
+	 * 
+	 * @param id - the player's id
+	 * @param temp - a temp coordinate default (-1,-1)
+	 * @param opponentCoord -  the opponent coordinate
 	 */
 	public void verticalWinning(int id, Coordinate temp, Coordinate opponentCoord)
 	{
@@ -1131,7 +1334,6 @@ public class hash420 implements PlayerModule, GobbletPart1
 				//defend the empty location if it is threatning
 				if(mine==3 && empty==1)
 				{
-					//System.out.println("Got to winning row");
 					end = temp;
 					moved = true;
 					break;
@@ -1147,11 +1349,14 @@ public class hash420 implements PlayerModule, GobbletPart1
 		}//end of row
 
 	}//end of winning vertical
+	
 	/**
 	 * This function checks to see if it is possible for the player to perform a quick win in the diagonal rows thus 
-	 * preventing it from going to defend
-	 * @param id player's id
-	 * @param temp will takes the empty row coordinate that the player can win and pass it to end
+	 * preventing it from going to defend not realizing that it can win via diagonal
+	 * 
+	 * @param id - the player's id
+	 * @param temp - a temp coordinate default (-1,-1)
+	 * @param opponentCoord -  the opponent coordinate
 	 */
 	public void diagonalWin(int id, Coordinate temp, Coordinate opponentCoord)
 	{
@@ -1246,8 +1451,14 @@ public class hash420 implements PlayerModule, GobbletPart1
 	 */
 	public void moveWithoutGobbleTheOpponent()
 	{
+		System.out.println("GOT TO HERE?");
+		
+		
+		System.out.println("stack: " + stack);
+		System.out.println("moved: " + moved);
 		if(stack!=0 && !moved)
 		{
+			System.out.println("This is trying to executed...");
 			//search for an empty spot on the board
 			for(int row = 0; row<board.length&&!moved; row++)
 			{
@@ -1266,8 +1477,9 @@ public class hash420 implements PlayerModule, GobbletPart1
 		}//end of if stack is not empty
 
 		//the stacks are empty and I can move a piece from the board and put it on a empty location
-		if(stack==0 &&!moved)
+		if(stack == 0 &&!moved)
 		{
+			System.out.println("Stack is 0 and we have got here");
 			for(int row = 0; row<board.length &&!moved; row++)
 			{
 				for(int col = 0; col<board.length; col++)
@@ -1301,6 +1513,13 @@ public class hash420 implements PlayerModule, GobbletPart1
 		}//end of if stack is 0
 
 	}//end of moving without gobble the opponent
+
+	/**
+	 * This function moves the piece from the board and includes
+	 * gobbling the opponent. This is done with piece that is
+	 * higher than the opponent's and that piece is not guarding
+	 * anything
+	 */
 	public void gobbleOpponentFromBoard()
 	{
 		//go through the board
@@ -1335,22 +1554,301 @@ public class hash420 implements PlayerModule, GobbletPart1
 							}
 						}
 					}
-
 				}	
 			}
-
 		}
 	}//end of gobble the opponent from stack
+	
+	/**
+	 * This method is used to update the ThreatLocation to ensure that it 
+	 * reflect the correct states according to the board
+	 */
+	public void updateThreatLocationList()
+	{
+		boolean checkVertical = false, checkHorizontal = false, checkDiagonal1 = false,checkDiagonal2 = false;
+		boolean quit = false;
+		for(int check = 0; check< playerThreat.size(); check++)
+		{
+			int tempRow = playerThreat.get(check).getRow();
+
+			//uses to compare in the diagonals
+			int diagRow = playerThreat.get(check).getRow();
+			int diagCol = playerThreat.get(check).getCol();
+
+			//checking horizontal
+			for(int row = tempRow; row<board.length &&!quit; row++)
+			{
+				int threat = 0;
+				for(int col =0; col<board.length; col++)
+				{
+					//System.out.println("Current location: "+ row + ","+ col);
+					if(this.getTopOwnerOnBoard(row, col)!=playerId && this.getTopOwnerOnBoard(row, col)!=emptyPos)
+					{
+						threat++;
+					}
+					else
+					{
+						if(threat==3)
+							checkHorizontal = false;
+						checkHorizontal = true;
+
+						if(col==board.length-1)
+						{
+							quit = true;
+							break;	
+						}
+
+					}	
+				}
+			}//end of horizontal update
+
+			//checking vertical
+			int tempCol = playerThreat.get(check).getCol();
+			for(int row = tempCol; row<board.length &&!quit; row++)
+			{
+				int threat = 0;
+				for(int col =0; col<board.length; col++)
+				{
+					if(this.getTopOwnerOnBoard(row, col)!=playerId && this.getTopOwnerOnBoard(row, col)!=emptyPos)
+					{
+						threat++;
+					}
+					else
+					{
+						if(threat==3)
+							checkVertical = false;
+						checkVertical = true;
+						if(col==board.length-1)
+						{
+							quit = true;
+							break;	
+						}
+
+					}	
+				}
+			}//end of vertical update
+
+			//diagonal check
+			//diagonal 1
+			int row = 0, col = 3;
+			int threat = 0;
+			boolean possess1 = false;
+			while(col>=0 && row<board.length)
+			{
+				if(this.getTopOwnerOnBoard(row,col)!=playerId && this.getTopOwnerOnBoard(row,col)!=emptyPos)
+				{
+					threat++;
+				}
+				//get the location of the next empty space to defend myself
+				if(threat == 3)
+				{
+					checkDiagonal1= false;
+				}
+				if(row == diagRow && col == diagCol)
+					possess1 = true;
+				if(row==board.length-1&&threat<3 && col==0 && !possess1)
+					checkDiagonal1 = true;
+				row++; col--;
+			}
+
+			//diagonal2
+			int boardCheck = 0;
+			int threat1 = 0;
+			boolean possess = false; // sol 5th floor is it then kk btw i want to check something nice I still have more lines to add i know I 
+			while(boardCheck<board.length)
+			{
+				if(this.getTopOwnerOnBoard(boardCheck,boardCheck)!=playerId && this.getTopOwnerOnBoard(boardCheck,boardCheck)!=emptyPos)
+				{
+					threat1++;
+				}
+
+				if(threat1 == 3)
+				{
+					checkDiagonal2= false;
+				}
+				if(boardCheck == diagRow && boardCheck == diagCol)
+					possess = true;
+				if(boardCheck==board.length-1&&threat1<3 && !possess)
+					checkDiagonal2 = true;
+				boardCheck++;
+			}
+
+			//no longer threat
+			if(checkVertical && checkHorizontal && checkDiagonal1 && checkDiagonal2 )
+			{
+				playerThreat.remove(check);
+			}
+		}
+	}
+
+	public void twoInARowThreatDanger()
+	{
+		//check the vertical
+		for(int vertRow = 0; vertRow<board.length &&!moved; vertRow++)
+		{
+			twoInARowThreat = new ArrayList<Gobblet>();
+			int isIn = 0;
+			int vertThreat = 0;
+			Coordinate doesContain = new Coordinate(-1,-1);
+			for(int vertCol = 0; vertCol<board.length &&!moved; vertCol++)
+			{
+				//keeping track of the information
+				twoInARowThreat.add(new Gobblet(playerId,vertCol,vertRow));
+				if(this.getTopOwnerOnBoard(vertCol, vertRow)==playerId)
+				{
+					break;
+				}
+				if(this.getTopOwnerOnBoard(vertCol,vertRow)!=playerId && this.getTopOwnerOnBoard(vertCol,vertRow)!=emptyPos)
+				{
+					vertThreat++;
+				}
+
+				//we have got to the end of a vertical position
+				if(vertCol==board.length-1 && vertThreat==2)
+				{
+					//checking the horizontal
+					for(int horizRow = 0; horizRow<board.length&&!moved; horizRow++)
+					{
+						int horizThreat = 0;
+						for(int horizCol = 0; horizCol<board.length &&!moved; horizCol++)
+						{
+							//if i am on this row the quit
+							if(this.getTopOwnerOnBoard(horizRow, horizCol)==playerId)
+							{
+								break;
+							}
+							if(this.getTopOwnerOnBoard(horizRow,horizCol)!=playerId && this.getTopOwnerOnBoard(horizRow,horizCol)!=emptyPos)
+							{
+								horizThreat++;
 
 
-	/* (non-Javadoc)
-	 * @see Interface.PlayerModule#playerInvalidated(int)
+							}
+							//does the vertical contain this location as well?
+							if(twoInARowThreat.contains(new Gobblet(playerId,horizRow,horizCol)))
+							{
+								doesContain = new Coordinate(horizRow,horizCol);
+
+							}
+
+							//we have got to the end of the horiz checking
+							if(horizCol == board.length-1 && vertThreat == 2 && horizThreat==2)
+							{
+								//the player piece is not 4
+								if(this.getTopSizeOnBoard(doesContain.getRow(),doesContain.getCol())!=4)
+								{
+									//pick my highest piece from the board and gobble that opponent.
+									for(int pickRow = 0; pickRow<board.length && !moved; pickRow++)
+									{
+										for(int pickCol = 0; pickCol<board.length &&!moved; pickCol++)
+										{
+											if(this.getTopOwnerOnBoard(pickRow, pickCol)==playerId && this.getTopSizeOnBoard(pickRow, pickCol)==4)
+											{
+												if(!playerThreat.contains(new Gobblet(playerId,pickRow,pickCol)))
+												{
+													start = new Coordinate(pickRow,pickCol);
+													stack = 0;
+													piece = this.getTopSizeOnBoard(pickRow, pickCol);
+													end = doesContain;
+													moved = true;
+													break;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * This function checks to see if the opponent is tricking me in making a move
+	 * that spite blocking him He can still win
+	 */
+	public void defendTwoInARowHorizVerticalByBlockingFirstCell()
+	{
+		int  col = 0;
+		int row  = 0;
+		Coordinate coord = new Coordinate(-1,-1);
+		for(int vertRow = 0; vertRow<board.length &&!moved; vertRow++)
+		{
+			int verThreat = 0;
+			for(int vertCol = 0; vertCol <board.length &&!moved; vertCol++)
+			{
+				if(this.getTopOwnerOnBoard(vertRow, vertCol)==playerId && this.getTopSizeOnBoard(vertRow, vertCol)==4)
+					break;
+				if(this.getTopOwnerOnBoard(vertCol, vertRow)!=playerId && this.getTopOwnerOnBoard(vertCol, vertRow)!=emptyPos)
+				{
+					verThreat++;
+				}
+
+				//we have got to the end of the vertical column
+				if(vertCol==board.length-1&&verThreat==3)
+				{
+					//now search the horizontal
+					for(int horizRow = 0; horizRow< board.length &&!moved; horizRow++)
+					{
+						int horizThreat = 0;
+						for(int horizCol = 0; horizCol<board.length &&!moved; horizCol++)
+						{
+							if(this.getTopOwnerOnBoard(horizRow, horizCol)==playerId && this.getTopSizeOnBoard(horizRow, horizCol)==4)
+								break;
+							if(this.getTopOwnerOnBoard(horizRow, horizCol)!=playerId && this.getTopOwnerOnBoard(horizRow, horizCol)!=emptyPos)
+							{
+								horizThreat++;
+							}
+
+							//a  horiz search has been completed
+							if(horizCol==board.length-1 && horizThreat==3)
+							{
+								if(this.getTopSizeOnBoard(row, col)!=4)
+								{
+
+									//pick my highest piece from the board and gobble that opponent.
+									for(int pickRow = 0; pickRow<board.length && !moved; pickRow++)
+									{
+										for(int pickCol = 0; pickCol<board.length &&!moved; pickCol++)
+										{
+											if(this.getTopOwnerOnBoard(pickRow, pickCol)==playerId && this.getTopSizeOnBoard(pickRow, pickCol)==4)
+											{
+												if(!playerThreat.contains(new Gobblet(playerId,pickRow,pickCol)))
+												{
+													start = new Coordinate(pickRow,pickCol);
+													stack = 0;
+													piece = this.getTopSizeOnBoard(pickRow, pickCol);
+													end = new Coordinate(row,col);
+													moved = true;
+													break;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						row++;
+					}
+				}
+			}
+			col++;
+		}
+	}
+
+	/**
+	 * Notifies the player that another player has been invalidated. In a 2 player game, 
+	 * this means the other player is now out of the game and this one just has to play 
+	 * the game alone to completion to win.
+	 * @param * @param an object representing this player module's move This method can be 
+	 * stubbed out for part 1. (Suggestion: "throw new UnsupportedOperationException()")
 	 */
 	@Override
 	public void playerInvalidated(int arg0) {
 		// TODO Auto-generated method stub
+		System.out.println("Invalid move PLAYER " + arg0+ " HAS BEEN KICKED OUT");
 		throw new UnsupportedOperationException(); 
-
 	}
 
 }
