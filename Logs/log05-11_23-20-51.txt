@@ -1,0 +1,8 @@
+05-11 23:20:51 Engine Gobblet Java Client v1.3c by RIT CS Department starting up
+05-11 23:20:57 Engine Loading player hash420
+05-11 23:20:57 Engine Loaded 2 players
+05-11 23:20:57 Engine Awaiting challenge from other players...
+05-11 23:20:57 Engine Calling init() for player 2
+05-11 23:20:57 Model  GUI accessible at:
+https://yendor.cs.rit.edu/~royale/gobblet/gameview/animations.500/public.26b25006123465d747ff47cdd3536deeb654641153703e425e41d/gameid.428143/myplayer.2/
+05-11 23:20:57 Engine Awaiting remote move #1

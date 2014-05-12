@@ -31,6 +31,7 @@ import Interface.PlayerMove;
 public class hash420 implements PlayerModule, GobbletPart1 
 {
 	private int playerId;
+	
 	private Logger logger;
 
 	//USE CONSTANTS FOR THE BOARD IMPLEMENT
@@ -941,7 +942,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 							{
 								if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
 								{
-									System.out.println("Look here Ranbir");
+									//System.out.println("Look here Ranbir");
 									stack = i;
 									start = new Coordinate(-1,-1);
 									piece = this.getTopSizeOnStack(id, stack);
@@ -972,7 +973,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 						{
 							if(!generalStack[i-1].isEmpty() && this.getTopSizeOnStack(id, i)==highest )
 							{
-								System.out.println("Look here Ranbir");
+								//System.out.println("Look here Ranbir");
 								stack = i;
 								start = new Coordinate(-1,-1);
 								piece = this.getTopSizeOnStack(id, stack);
@@ -1451,14 +1452,14 @@ public class hash420 implements PlayerModule, GobbletPart1
 	 */
 	public void moveWithoutGobbleTheOpponent()
 	{
-		System.out.println("GOT TO HERE?");
+		//System.out.println("GOT TO HERE?");
 		
 		
-		System.out.println("stack: " + stack);
-		System.out.println("moved: " + moved);
+		//System.out.println("stack: " + stack);
+		//System.out.println("moved: " + moved);
 		if(stack!=0 && !moved)
 		{
-			System.out.println("This is trying to executed...");
+			//System.out.println("This is trying to executed...");
 			//search for an empty spot on the board
 			for(int row = 0; row<board.length&&!moved; row++)
 			{
@@ -1479,7 +1480,7 @@ public class hash420 implements PlayerModule, GobbletPart1
 		//the stacks are empty and I can move a piece from the board and put it on a empty location
 		if(stack == 0 &&!moved)
 		{
-			System.out.println("Stack is 0 and we have got here");
+			//System.out.println("Stack is 0 and we have got here");
 			for(int row = 0; row<board.length &&!moved; row++)
 			{
 				for(int col = 0; col<board.length; col++)
